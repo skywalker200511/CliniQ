@@ -1,0 +1,157 @@
+/* Mobile overrides for Doctor Module */
+@media (max-width: 768px) {
+  /* Layout */
+  .doctor-main {
+    margin-left: 0 !important;
+    margin-bottom: 65px !important; /* Space for bottom nav */
+  }
+
+  .doctor-content {
+    padding: var(--gutter-md) !important;
+  }
+
+  /* Sidebar -> Bottom Nav */
+  .doctor-sidebar {
+    width: 100vw !important;
+    height: 65px !important;
+    top: auto !important;
+    bottom: 0 !important;
+    flex-direction: row !important;
+    border-right: none !important;
+    border-top: 1px solid var(--surface-variant) !important;
+    z-index: 1000 !important;
+  }
+
+  .sidebar-brand,
+  .sidebar-clinic-selector,
+  .sidebar-footer {
+    display: none !important;
+  }
+
+  .sidebar-nav {
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    padding: 0 !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .nav-item {
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding: 6px 4px !important;
+    border-radius: 0 !important;
+    width: auto !important;
+    height: 100% !important;
+    position: relative !important;
+  }
+
+  .nav-icon {
+    margin-right: 0 !important;
+    margin-bottom: 4px !important;
+    font-size: 22px !important;
+  }
+
+  .nav-label {
+    font-size: 10px !important;
+    text-align: center !important;
+    flex: none !important;
+  }
+
+  .nav-badge {
+    position: absolute !important;
+    top: 2px !important;
+    right: 2px !important;
+    padding: 2px 4px !important;
+    font-size: 9px !important;
+  }
+
+  /* Header */
+  .doctor-header {
+    padding: 0 var(--gutter-md) !important;
+  }
+
+  .header-user-info,
+  .breadcrumb-item,
+  .breadcrumb-separator {
+    display: none !important;
+  }
+
+  .header-actions {
+    gap: var(--gutter-sm) !important;
+  }
+
+  /* Home */
+  .home-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--gutter-md) !important;
+  }
+
+  .home-welcome {
+    flex-direction: column !important;
+    gap: var(--gutter-md) !important;
+  }
+
+  .queue-mini-stats {
+    gap: 16px !important;
+    justify-content: space-between !important;
+  }
+
+  .queue-big-number {
+    font-size: 72px !important;
+  }
+
+  .system-status-footer {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+  
+  .version-info {
+    margin-left: 0 !important;
+  }
+
+  /* Queue & Patients Tables */
+  .queue-toolbar,
+  .directory-toolbar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: var(--gutter-md) !important;
+  }
+
+  .filter-tabs {
+    width: 100% !important;
+    overflow-x: auto !important;
+    padding-bottom: 8px !important;
+  }
+
+  .search-container {
+    max-width: 100% !important;
+  }
+
+  .queue-table th, .queue-table td,
+  .directory-table th, .directory-table td {
+    padding: 12px var(--gutter-md) !important;
+  }
+  
+  .page-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: var(--gutter-md) !important;
+  }
+
+  /* Messages */
+  .doctor-messages {
+    height: calc(100vh - var(--header-height) - var(--gutter-md) * 2 - 65px) !important;
+  }
+  
+  .chat-recipient h2 {
+    font-size: 16px !important;
+  }
+  
+  .recipient-avatar {
+    width: 36px !important;
+    height: 36px !important;
+  }
+}

@@ -4,6 +4,7 @@ import DoctorSidebar from './DoctorSidebar';
 import DoctorHeader from './DoctorHeader';
 import ToastContainer from '../../components/shared/Toast';
 import './DoctorLayout.css';
+import './DoctorMobile.css';
 
 export default function DoctorLayout() {
   const { state } = useAppContext();
