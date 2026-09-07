@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppContext } from '../../data/store';
-import { getFilteredQueue, getQueueStats } from '../../services/queueService';
+import { getFilteredQueue, getQueueStats, removeFromQueue } from '../../services/queueService';
 import StatusBadge from '../../components/shared/StatusBadge';
 import SearchInput from '../../components/shared/SearchInput';
 import EmptyState from '../../components/shared/EmptyState';
@@ -130,8 +130,17 @@ export default function ReceptionistQueue() {
                           <span className="material-symbols-outlined">campaign</span>
                         </button>
                       )}
-                      <button className="icon-button small" title="More options">
-                        <span className="material-symbols-outlined">more_vert</span>
+                      <button 
+                        className="icon-button small" 
+                        title="Remove from queue"
+                        onClick={async () => {
+                          if (window.confirm(`Are you sure you want to remove ${entry.patientName} from the queue?`)) {
+                            await removeFromQueue(dispatch, entry.id);
+                          }
+                        }}
+                        style={{ color: 'var(--error)' }}
+                      >
+                        <span className="material-symbols-outlined">delete</span>
                       </button>
                     </td>
                   </tr>

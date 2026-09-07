@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAppContext } from '../../data/store';
-import { searchPatients, calculateAge } from '../../services/patientService';
+import { searchPatients, calculateAge, deletePatient } from '../../services/patientService';
 import { addToQueue } from '../../services/queueService';
 import SearchInput from '../../components/shared/SearchInput';
 import EmptyState from '../../components/shared/EmptyState';
@@ -127,6 +127,24 @@ export default function ReceptionistPatients() {
                           {isPatientInQueue(patient.id) ? 'check' : 'add'}
                         </span> 
                         {isPatientInQueue(patient.id) ? 'In Queue' : 'Add to Queue'}
+                      </button>
+                      <button 
+                        className="icon-button small" 
+                        title="Delete Patient"
+                        onClick={async () => {
+                          if (window.confirm(`WARNING: This will permanently delete ${patient.fullName} and all their records from the database. Are you sure?`)) {
+                            try {
+                              await deletePatient(patient.id);
+                              setPatients(prev => prev.filter(p => p.id !== patient.id));
+                              showToast('Patient deleted successfully');
+                            } catch (error) {
+                              showToast('Failed to delete patient', 'error');
+                            }
+                          }
+                        }}
+                        style={{ color: 'var(--error)' }}
+                      >
+                        <span className="material-symbols-outlined">delete_forever</span>
                       </button>
                     </td>
                   </tr>

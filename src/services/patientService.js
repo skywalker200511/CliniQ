@@ -24,7 +24,6 @@ export function getInitials(name) {
 /** Create a new patient record in Supabase */
 export async function createPatient(dispatch, patientData) {
   try {
-    // Map React form state (camelCase) to Supabase columns (snake_case)
     const fullNameParts = patientData.fullName.trim().split(' ');
     const firstName = fullNameParts[0];
     const lastName = fullNameParts.length > 1 ? fullNameParts.slice(1).join(' ') : '';
@@ -49,7 +48,6 @@ export async function createPatient(dispatch, patientData) {
 
     if (error) throw error;
 
-    // Map Supabase response back to our frontend model format
     const newPatient = {
       id: data.patient_id,
       fullName: data.first_name + ' ' + data.last_name,
@@ -73,13 +71,33 @@ export async function createPatient(dispatch, patientData) {
   }
 }
 
+/** Delete a patient from Supabase */
+export async function deletePatient(patientId) {
+  try {
+    // Delete their queue entries first
+    await supabase.from('queue').delete().eq('patient_id', patientId);
+    
+    // Delete their consultations
+    await supabase.from('consultations').delete().eq('patient_id', patientId);
+
+    // Delete the patient
+    const { error } = await supabase.from('patients').delete().eq('patient_id', patientId);
+    if (error) throw error;
+    
+    return true;
+  } catch (error) {
+    console.error('Error deleting patient:', error);
+    throw error;
+  }
+}
+
 /** Get all patients from Supabase */
 export async function getAllPatients(dispatch) {
   try {
     const { data, error } = await supabase.from('patients').select('*');
     if (error) throw error;
     
-    const patients = data.map(p => ({
+    return data.map(p => ({
       id: p.patient_id,
       fullName: p.first_name + ' ' + p.last_name,
       dateOfBirth: p.date_of_birth,
@@ -93,15 +111,11 @@ export async function getAllPatients(dispatch) {
       registeredAt: p.created_at,
       lastVisitDate: null,
     }));
-    
-    // Depending on your store structure, you might want to dispatch an action to SET_PATIENTS here.
-    return patients;
   } catch (error) {
     console.error('Error fetching patients:', error);
     return [];
   }
 }
-
 
 /** Search patients by name, ID, or phone */
 export async function searchPatients(query) {
@@ -110,7 +124,7 @@ export async function searchPatients(query) {
     
     if (query && query.length >= 2) {
       const q = query.toLowerCase().trim();
-      dbQuery = dbQuery.or(`first_name.ilike.%${q}%,last_name.ilike.%${q}%,phone_number.ilike.%${q}%,patient_id.eq.${q}`);
+      dbQuery = dbQuery.or(irst_name.ilike.% + ${q} + %,last_name.ilike.% + ${q} + %,phone_number.ilike.% + ${q} + %,patient_id.eq. + ${q});
     }
 
     const { data, error } = await dbQuery;
