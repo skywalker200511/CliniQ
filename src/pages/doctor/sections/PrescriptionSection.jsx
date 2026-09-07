@@ -40,14 +40,13 @@ export default function PrescriptionSection({ prescriptions, setPrescriptions })
   ];
 
   const handleQuickAdd = (med) => {
-    setPrescriptions(prev => [...prev, {
-      id: Date.now().toString() + Math.random(),
+    setNewRx({
       medication: med.name,
       dosage: med.dosage,
       frequency: '1-0-1 (Twice daily)',
       duration: med.duration,
       instructions: med.instructions
-    }]);
+    });
   };
 
   return (

@@ -9,12 +9,7 @@ export default function SymptomsSection({ symptoms, setSymptoms }) {
   const QUICK_SYMPTOMS = ['Fever', 'Cough', 'Headache', 'Nausea', 'Body Ache', 'Fatigue'];
 
   const handleQuickAdd = (symp) => {
-    setSymptoms(prev => [...prev, {
-      id: Date.now().toString() + Math.random(),
-      name: symp,
-      duration: 'Not specified',
-      severity: 'Mild'
-    }]);
+    setNewSymptom(symp);
   };
 
   const handleAddSymptom = () => {
