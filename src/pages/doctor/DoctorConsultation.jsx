@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../data/store';
 import { searchPatients, calculateAge } from '../../services/patientService';
-import { createConsultation } from '../../services/consultationService';
+import { saveConsultation } from '../../services/consultationService';
 import { completeQueueEntry } from '../../services/queueService';
 import StatusBadge from '../../components/shared/StatusBadge';
 import './DoctorConsultation.css';
@@ -41,12 +41,7 @@ export default function DoctorConsultation() {
     const found = searchPatients(state, id);
     if (found.length > 0) {
       setPatient(found[0]);
-      // Note: In a real app we'd fetch an existing draft or create a new one
-      const newConsultation = createConsultation(dispatch, {
-        patientId: found[0].id,
-        doctorId: state.currentUser?.id || 'doc-001'
-      });
-      setConsultationId(newConsultation.id);
+      setPatient(found[0]);
     } else {
       showToast('Patient not found', 'error');
       navigate('/doctor/queue');
@@ -57,14 +52,26 @@ export default function DoctorConsultation() {
     showToast('Draft saved successfully', 'success');
   };
 
-  const handleCompleteConsultation = () => {
+  const handleCompleteConsultation = async () => {
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      completeQueueEntry(dispatch, state, id);
+    try {
+      await saveConsultation({
+        patientId: id,
+        doctorId: state.currentUser?.id || 'doc-001',
+        vitals,
+        symptoms,
+        diagnosis,
+        prescriptions,
+        notes,
+        advice
+      });
+      await completeQueueEntry(dispatch, state, id);
       showToast('Consultation completed and saved to EHR', 'success');
       navigate('/doctor/queue');
-    }, 800);
+    } catch (err) {
+      showToast('Failed to save consultation', 'error');
+      setIsSubmitting(false);
+    }
   };
 
   if (!patient) return <div className="loading">Loading patient data...</div>;

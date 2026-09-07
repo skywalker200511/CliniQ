@@ -1,98 +1,41 @@
-/**
- * Consultation Service — Data access layer for clinical case-taking.
- */
-import { ACTIONS } from '../data/store';
+import { supabase } from '../lib/supabase';
 
-/** Create a new consultation session */
-export function createConsultation(dispatch, { patientId, doctorId }) {
-  const consultation = {
-    id: `consult-${Date.now()}`,
-    patientId,
-    doctorId,
-    chiefComplaint: '',
-    additionalComplaints: [],
-    symptoms: [],
-    symptomDetails: {},
-    medicalHistory: {
-      conditions: [],
-      familyHistory: '',
-      surgicalHistory: 'None reported',
-      knownAllergies: [],
-      currentMedications: [],
-    },
-    vitalSigns: {
-      bodyTemp: null,
-      bodyTempUnit: '°F',
-      bodyTempStatus: '',
-      bloodPressure: '',
-      bpStatus: '',
-      pulseRate: null,
-      pulseStatus: '',
-      oxygenSaturation: null,
-      o2Status: '',
-      weight: null,
-      weightNote: '',
-      height: null,
-      bmi: '',
-    },
-    clinicalExamination: { findings: [], notes: '' },
-    diagnosis: '',
-    diagnosisCode: '',
-    secondaryDiagnosis: '',
-    treatmentPlan: '',
-    quickInclusions: [],
-    documents: [],
-    status: 'active',
-    startedAt: new Date().toISOString(),
-    completedAt: null,
-    lastSavedAt: null,
-  };
+export async function saveConsultation({ patientId, doctorId, vitals, symptoms, diagnosis, prescriptions, notes, advice }) {
+  // 1. Calculate the visit number by counting previous consultations
+  const { count, error: countError } = await supabase
+    .from('consultations')
+    .select('*', { count: 'exact', head: true })
+    .eq('patient_id', patientId);
 
-  dispatch({ type: ACTIONS.ADD_CONSULTATION, payload: consultation });
-  return consultation;
+  const visitNumber = (count || 0) + 1;
+
+  // 2. Insert the new consultation
+  const { data, error } = await supabase.from('consultations').insert([{
+    patient_id: patientId,
+    doctor_id: doctorId || 'doc-001',
+    visit_number: visitNumber,
+    vitals: vitals,
+    symptoms: symptoms,
+    diagnosis: diagnosis,
+    prescriptions: prescriptions,
+    notes: notes,
+    advice: advice,
+    status: 'completed'
+  }]).select().single();
+
+  if (error) {
+    console.error('Error saving consultation:', error);
+    throw error;
+  }
+  return data;
 }
 
-/** Get a specific consultation by ID */
-export function getConsultation(state, consultationId) {
-  return state.consultations.find(c => c.id === consultationId) || null;
-}
-
-/** Get consultations for a specific patient */
-export function getPatientConsultations(state, patientId) {
-  return state.consultations.filter(c => c.patientId === patientId);
-}
-
-/** Update a consultation */
-export function updateConsultation(dispatch, consultationId, updates) {
-  dispatch({
-    type: ACTIONS.UPDATE_CONSULTATION,
-    payload: { id: consultationId, ...updates, lastSavedAt: new Date().toISOString() },
-  });
-}
-
-/** Save a consultation draft */
-export function saveDraft(dispatch, consultationId, data) {
-  dispatch({
-    type: ACTIONS.UPDATE_CONSULTATION,
-    payload: { id: consultationId, ...data, status: 'draft', lastSavedAt: new Date().toISOString() },
-  });
-}
-
-/** Complete a consultation */
-export function completeConsultation(dispatch, consultationId, data) {
-  dispatch({
-    type: ACTIONS.UPDATE_CONSULTATION,
-    payload: {
-      id: consultationId,
-      ...data,
-      status: 'completed',
-      completedAt: new Date().toISOString(),
-      lastSavedAt: new Date().toISOString(),
-    },
-  });
-}
-
-/** Get all consultations */
-export function getAllConsultations(state) {
-  return state.consultations;
+export async function getPatientConsultations(patientId) {
+  const { data, error } = await supabase
+    .from('consultations')
+    .select('*')
+    .eq('patient_id', patientId)
+    .order('created_at', { ascending: false });
+  
+  return data || [];
 }
