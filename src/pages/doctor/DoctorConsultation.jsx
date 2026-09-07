@@ -13,7 +13,7 @@ import SymptomsSection from './sections/SymptomsSection';
 import DiagnosisSection from './sections/DiagnosisSection';
 import PrescriptionSection from './sections/PrescriptionSection';
 import NotesSection from './sections/NotesSection';
-
+import AdviceSection from './sections/AdviceSection';
 export default function DoctorConsultation() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -34,6 +34,7 @@ export default function DoctorConsultation() {
   });
   const [prescriptions, setPrescriptions] = useState([]);
   const [notes, setNotes] = useState('');
+  const [advice, setAdvice] = useState({ text: '', labTests: '', followUpDays: '' });
 
   useEffect(() => {
     // Find patient and init consultation
@@ -144,6 +145,7 @@ export default function DoctorConsultation() {
                 <DiagnosisSection diagnosis={diagnosis} setDiagnosis={setDiagnosis} />
                 <PrescriptionSection prescriptions={prescriptions} setPrescriptions={setPrescriptions} />
                 <NotesSection notes={notes} setNotes={setNotes} />
+                <AdviceSection advice={advice} setAdvice={setAdvice} />
               </div>
             )}
             
@@ -168,6 +170,34 @@ export default function DoctorConsultation() {
 
         {/* Right Sidebar - Reference Info */}
         <div className="reference-sidebar">
+          <div className="reference-card" style={{ marginBottom: '16px' }}>
+            <div className="card-header border-bottom">
+              <h3 className="text-label-md">Past Medical History</h3>
+            </div>
+            <div className="card-body">
+              <div className="history-item" style={{ marginBottom: '12px' }}>
+                <span className="text-label-sm label" style={{ display: 'block', color: 'var(--on-surface-variant)' }}>Chronic Conditions</span>
+                <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginTop: '4px' }}>
+                  <span className="demographic-pill warning">Hypertension</span>
+                  <span className="demographic-pill">Asthma (Childhood)</span>
+                </div>
+              </div>
+              <div className="history-item">
+                <span className="text-label-sm label" style={{ display: 'block', color: 'var(--on-surface-variant)' }}>Previous Visits</span>
+                <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ padding: '8px', background: 'var(--surface-container-low)', borderRadius: '6px' }}>
+                    <div className="text-label-sm">12 Aug 2023</div>
+                    <div className="text-body-sm">Viral Fever (Paracetamol)</div>
+                  </div>
+                  <div style={{ padding: '8px', background: 'var(--surface-container-low)', borderRadius: '6px' }}>
+                    <div className="text-label-sm">05 Jan 2023</div>
+                    <div className="text-body-sm">Routine Checkup (BP Normal)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="reference-card">
             <div className="card-header border-bottom">
               <h3 className="text-label-md">Patient Context</h3>

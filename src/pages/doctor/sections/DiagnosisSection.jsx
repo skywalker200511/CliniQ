@@ -30,6 +30,12 @@ export default function DiagnosisSection({ diagnosis, setDiagnosis }) {
     }));
   };
 
+  const QUICK_DIAGNOSES = ['Viral Fever', 'Common Cold', 'Hypertension', 'Type 2 Diabetes', 'Acute Gastroenteritis'];
+
+  const handleQuickAdd = (dx) => {
+    setDiagnosis(prev => ({ ...prev, primary: dx }));
+  };
+
   return (
     <div className="form-section">
       <div className="section-header">
@@ -57,6 +63,15 @@ export default function DiagnosisSection({ diagnosis, setDiagnosis }) {
       </div>
 
       <div className="diagnosis-grid">
+        <div className="quick-select-chips" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px', width: '100%' }}>
+          <span className="text-label-sm" style={{ display: 'flex', alignItems: 'center', marginRight: '8px' }}>Quick Add Primary:</span>
+          {QUICK_DIAGNOSES.map(dx => (
+            <button key={dx} type="button" className="chip" onClick={() => handleQuickAdd(dx)}>
+              + {dx}
+            </button>
+          ))}
+        </div>
+
         <div className="vital-input-group">
           <label>Primary Diagnosis (ICD-10)</label>
           <div className="input-wrapper">

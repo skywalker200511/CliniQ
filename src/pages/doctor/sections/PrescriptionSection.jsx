@@ -32,6 +32,24 @@ export default function PrescriptionSection({ prescriptions, setPrescriptions })
     setPrescriptions(prev => prev.filter(rx => rx.id !== id));
   };
 
+  const QUICK_MEDS = [
+    { name: 'Paracetamol', dosage: '500mg', duration: '3 days', instructions: 'After meals' },
+    { name: 'Amoxicillin', dosage: '250mg', duration: '5 days', instructions: 'After meals' },
+    { name: 'Cetirizine', dosage: '10mg', duration: '5 days', instructions: 'Before sleep' },
+    { name: 'Pantoprazole', dosage: '40mg', duration: '5 days', instructions: 'Empty stomach' }
+  ];
+
+  const handleQuickAdd = (med) => {
+    setPrescriptions(prev => [...prev, {
+      id: Date.now().toString() + Math.random(),
+      medication: med.name,
+      dosage: med.dosage,
+      frequency: '1-0-1 (Twice daily)',
+      duration: med.duration,
+      instructions: med.instructions
+    }]);
+  };
+
   return (
     <div className="form-section">
       <div className="section-header">
@@ -42,6 +60,15 @@ export default function PrescriptionSection({ prescriptions, setPrescriptions })
       </div>
 
       <div className="prescription-container">
+        <div className="quick-select-chips" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px', width: '100%' }}>
+          <span className="text-label-sm" style={{ display: 'flex', alignItems: 'center', marginRight: '8px' }}>Quick Add Rx:</span>
+          {QUICK_MEDS.map(med => (
+            <button key={med.name} type="button" className="chip" onClick={() => handleQuickAdd(med)}>
+              + {med.name} {med.dosage}
+            </button>
+          ))}
+        </div>
+
         <div className="rx-input-grid">
           <div className="vital-input-group">
             <label>Medication Name</label>

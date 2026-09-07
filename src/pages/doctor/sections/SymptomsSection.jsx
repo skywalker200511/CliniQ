@@ -6,6 +6,17 @@ export default function SymptomsSection({ symptoms, setSymptoms }) {
   const [duration, setDuration] = useState('');
   const [severity, setSeverity] = useState('Mild');
 
+  const QUICK_SYMPTOMS = ['Fever', 'Cough', 'Headache', 'Nausea', 'Body Ache', 'Fatigue'];
+
+  const handleQuickAdd = (symp) => {
+    setSymptoms(prev => [...prev, {
+      id: Date.now().toString() + Math.random(),
+      name: symp,
+      duration: 'Not specified',
+      severity: 'Mild'
+    }]);
+  };
+
   const handleAddSymptom = () => {
     if (!newSymptom) return;
     
@@ -35,6 +46,15 @@ export default function SymptomsSection({ symptoms, setSymptoms }) {
       </div>
 
       <div className="symptoms-container">
+        <div className="quick-select-chips" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
+          <span className="text-label-sm" style={{ display: 'flex', alignItems: 'center', marginRight: '8px' }}>Quick Add:</span>
+          {QUICK_SYMPTOMS.map(symp => (
+            <button key={symp} type="button" className="chip" onClick={() => handleQuickAdd(symp)}>
+              + {symp}
+            </button>
+          ))}
+        </div>
+
         <div className="symptoms-input-row">
           <div className="vital-input-group">
             <label>Symptom</label>
