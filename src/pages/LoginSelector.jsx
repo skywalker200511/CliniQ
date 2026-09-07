@@ -1,10 +1,17 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useAppContext, USERS } from '../data/store';
 import './LoginSelector.css';
 
 export default function LoginSelector() {
-  const { dispatch } = useAppContext();
+  const { state, dispatch } = useAppContext();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (state.currentUser) {
+      navigate(`/${state.currentUser.role}/`);
+    }
+  }, [state.currentUser, navigate]);
 
   const handleLogin = (role) => {
     dispatch({ type: 'SET_USER', payload: USERS[role] });

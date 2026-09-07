@@ -4,7 +4,7 @@ import { INITIAL_PATIENTS, INITIAL_QUEUE, INITIAL_CONSULTATIONS, INITIAL_MESSAGE
 
 /* ── Initial State ───────────────────────────────────────────────── */
 const initialState = {
-  currentUser: null, // Will be set on role selection
+  currentUser: JSON.parse(localStorage.getItem('cliniq_user') || 'null'),
   patients: [],
   queue: [],
   consultations: [],

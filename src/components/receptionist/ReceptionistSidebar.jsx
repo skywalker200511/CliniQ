@@ -4,7 +4,7 @@ import { getUnreadCount } from '../../services/messageService';
 import './ReceptionistSidebar.css';
 
 export default function ReceptionistSidebar() {
-  const { state } = useAppContext();
+  const { state, dispatch } = useAppContext();
   const unreadMessages = getUnreadCount(state, state.currentUser?.id);
 
   const navItems = [
@@ -61,6 +61,13 @@ export default function ReceptionistSidebar() {
         <button className="nav-item">
           <span className="material-symbols-outlined nav-icon">help</span>
           <span className="nav-label">Help</span>
+        </button>
+        <button className="nav-item" onClick={() => {
+          window.location.href = '/';
+          dispatch({ type: 'SET_USER', payload: null });
+        }}>
+          <span className="material-symbols-outlined nav-icon" style={{color: 'var(--error)'}}>logout</span>
+          <span className="nav-label" style={{color: 'var(--error)'}}>Logout</span>
         </button>
         
         {state.currentUser && (
