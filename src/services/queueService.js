@@ -71,7 +71,7 @@ export async function callNextPatient(dispatch, state, doctorId) {
 }
 
 export async function completeQueueEntry(dispatch, state, patientId) {
-  const entry = state.queue.find(q => q.patientId === patientId && q.status === 'With Doctor');
+  const entry = state.queue.find(q => q.patientId === patientId && (q.status === 'With Doctor' || q.status === 'Waiting'));
   if (entry) {
     await markCompleted(dispatch, entry.id);
   }
