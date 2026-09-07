@@ -1,0 +1,222 @@
+.receptionist-queue {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--gutter-xl);
+}
+
+.queue-stats-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gutter-lg);
+  margin-bottom: var(--gutter-xl);
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: var(--gutter-md);
+  background: var(--surface-container-lowest);
+  padding: var(--gutter-xl);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.stat-card.active {
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(0, 92, 85, 0.15); /* Primary shadow */
+}
+
+.stat-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon-wrapper.primary { background: var(--primary-container); color: var(--on-primary-container); }
+.stat-icon-wrapper.warning { background: #fef9c3; color: #854d0e; }
+.stat-icon-wrapper.success { background: var(--secondary-container); color: var(--on-secondary-container); }
+
+.stat-icon-wrapper .material-symbols-outlined {
+  font-size: 28px;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-info .text-label-md {
+  color: var(--on-surface-variant);
+  margin-bottom: 4px;
+}
+
+.stat-number.primary { color: var(--primary); }
+.stat-number.warning { color: #854d0e; }
+.stat-number.success { color: var(--secondary); }
+
+/* Queue List Container */
+.queue-list-container {
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+  overflow: hidden;
+}
+
+.list-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--gutter-md) var(--gutter-lg);
+  border-bottom: 1px solid var(--surface-variant);
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--on-surface-variant);
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  background: var(--surface-container-low);
+  color: var(--on-surface);
+}
+
+.tab.active {
+  background: var(--surface-variant);
+  color: var(--on-surface);
+}
+
+.tab-badge {
+  background: var(--surface-container-highest);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+}
+
+.tab.active .tab-badge {
+  background: var(--surface-container-lowest);
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gutter-md);
+}
+
+.search-wrapper {
+  width: 320px;
+}
+
+/* Table */
+.queue-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.queue-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.queue-table th,
+.queue-table td {
+  padding: 16px var(--gutter-lg);
+  text-align: left;
+  border-bottom: 1px solid var(--surface-container);
+}
+
+.queue-table th {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--outline);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--surface-container-lowest);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.queue-table tbody tr:hover {
+  background: var(--surface-container-low);
+}
+
+.highlight-row {
+  background: var(--primary-fixed) !important;
+}
+
+.queue-number {
+  font-weight: 700;
+  color: var(--on-surface-variant);
+}
+
+.patient-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.patient-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface-container-high);
+  color: var(--on-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.actions-cell {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.icon-button.small {
+  width: 32px;
+  height: 32px;
+}
+
+.icon-button.small .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.primary-color {
+  color: var(--primary) !important;
+}
+.primary-color:hover {
+  background: var(--primary-container) !important;
+}
+
+.empty-cell {
+  padding: 0 !important;
+}

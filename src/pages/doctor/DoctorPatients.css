@@ -1,0 +1,125 @@
+.doctor-patients {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.directory-container {
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+  overflow: hidden;
+}
+
+.directory-toolbar {
+  padding: var(--gutter-lg);
+  border-bottom: 1px solid var(--surface-variant);
+}
+
+.search-container {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: var(--gutter-md);
+}
+
+.filter-chips {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-label {
+  color: var(--on-surface-variant);
+}
+
+.chip {
+  height: 32px;
+  padding: 0 16px;
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-full);
+  color: var(--on-surface-variant);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.chip:hover {
+  background: var(--surface-container);
+  color: var(--on-surface);
+}
+
+.directory-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.directory-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.directory-table th,
+.directory-table td {
+  padding: 16px var(--gutter-lg);
+  text-align: left;
+  border-bottom: 1px solid var(--surface-container);
+}
+
+.directory-table th {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--outline);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--surface-container-lowest);
+}
+
+.directory-table tbody tr:hover {
+  background: var(--surface-container-low);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.demographics-cell {
+  display: flex;
+  gap: 8px;
+}
+
+.demographic-pill {
+  background: var(--surface-container);
+  color: var(--on-surface);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.demographic-pill.border {
+  background: transparent;
+  border: 1px solid var(--outline-variant);
+}
+
+.medical-alert-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #fee2e2;
+  color: #991b1b;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.medical-alert-pill .material-symbols-outlined {
+  font-size: 14px;
+}
+
+.actions-cell {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

@@ -1,0 +1,205 @@
+/* ===================================================================
+   CareTrack — Global Styles & Design Token System
+   SIH26047 Patient Case-Taking Software
+   =================================================================== */
+
+/* ── CSS Reset & Base ────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { 
+  font-size: 16px; 
+  -webkit-font-smoothing: antialiased; 
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+  overscroll-behavior: none;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--outline-variant); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--outline); }
+
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+input, textarea, select { font-family: inherit; border: none; outline: none; }
+ul, ol { list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* ── Doctor Module Design Tokens ─────────────────────────────────── */
+.doctor-module {
+  --primary: #006194;
+  --on-primary: #ffffff;
+  --primary-container: #007bb9;
+  --on-primary-container: #c8e6ff;
+  --secondary: #006874;
+  --on-secondary: #ffffff;
+  --secondary-container: #97f0ff;
+  --on-secondary-container: #001f24;
+  --tertiary: #6b5778;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #f3daff;
+  --on-tertiary-container: #251431;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --surface: #faf8ff;
+  --on-surface: #171c22;
+  --surface-variant: #dde3ec;
+  --on-surface-variant: #41474e;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f0f4fc;
+  --surface-container: #eaeffa;
+  --surface-container-high: #dfe5f0;
+  --surface-container-highest: #d5dceb;
+  --surface-dim: #d5dce6;
+  --surface-bright: #faf8ff;
+  --surface-tint: #006194;
+  --outline: #72787e;
+  --outline-variant: #c1c7ce;
+  --inverse-surface: #2c3137;
+  --inverse-on-surface: #edf1f9;
+  --inverse-primary: #8ecff2;
+  --primary-fixed: #c8e6ff;
+  --primary-fixed-dim: #8ecff2;
+  --secondary-fixed: #97f0ff;
+  --secondary-fixed-dim: #4ad8eb;
+  --background: #faf8ff;
+  --on-background: #171c22;
+}
+
+/* ── Receptionist Module Design Tokens ───────────────────────────── */
+.receptionist-module {
+  --primary: #005c55;
+  --on-primary: #ffffff;
+  --primary-container: #0f766e;
+  --on-primary-container: #a3faef;
+  --secondary: #006b5f;
+  --on-secondary: #ffffff;
+  --secondary-container: #6df5e1;
+  --on-secondary-container: #006f64;
+  --tertiary: #7d4200;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #a15600;
+  --on-tertiary-container: #ffe6d5;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --surface: #f8f9ff;
+  --on-surface: #0b1c30;
+  --surface-variant: #d3e4fe;
+  --on-surface-variant: #3e4947;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #eff4ff;
+  --surface-container: #e5eeff;
+  --surface-container-high: #dce9ff;
+  --surface-container-highest: #d3e4fe;
+  --surface-dim: #cbdbf5;
+  --surface-bright: #f8f9ff;
+  --surface-tint: #006a63;
+  --outline: #6e7977;
+  --outline-variant: #bdc9c6;
+  --inverse-surface: #213145;
+  --inverse-on-surface: #eaf1ff;
+  --inverse-primary: #80d5cb;
+  --primary-fixed: #9cf2e8;
+  --primary-fixed-dim: #80d5cb;
+  --secondary-fixed: #71f8e4;
+  --secondary-fixed-dim: #4fdbc8;
+  --background: #f8f9ff;
+  --on-background: #0b1c30;
+}
+
+/* ── Spacing Tokens ──────────────────────────────────────────────── */
+:root {
+  --gutter-xs: 0.25rem;
+  --gutter-sm: 0.5rem;
+  --gutter-md: 1rem;
+  --gutter-lg: 1.5rem;
+  --gutter-xl: 2rem;
+  --control-height: 3rem;
+  --target-min: 3rem;
+  --sidebar-width: 256px;
+  --header-height: 64px;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+}
+
+/* ── Typography ──────────────────────────────────────────────────── */
+.text-display { font-size: 36px; line-height: 44px; letter-spacing: -0.02em; font-weight: 600; }
+.text-headline-lg { font-size: 28px; line-height: 36px; letter-spacing: -0.015em; font-weight: 600; }
+.text-headline-md { font-size: 22px; line-height: 28px; letter-spacing: -0.01em; font-weight: 600; }
+.text-headline-sm { font-size: 18px; line-height: 24px; font-weight: 600; }
+.text-body-lg { font-size: 16px; line-height: 24px; font-weight: 400; }
+.text-body-md { font-size: 14px; line-height: 20px; font-weight: 400; }
+.text-body-sm { font-size: 13px; line-height: 18px; letter-spacing: 0.005em; font-weight: 400; }
+.text-label-lg { font-size: 15px; line-height: 20px; letter-spacing: 0.01em; font-weight: 500; }
+.text-label-md { font-size: 13px; line-height: 16px; letter-spacing: 0.02em; font-weight: 600; }
+.text-label-sm { font-size: 11px; line-height: 14px; letter-spacing: 0.04em; font-weight: 600; }
+
+/* ── Material Symbols ────────────────────────────────────────────── */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+.icon-filled { font-variation-settings: 'FILL' 1; }
+
+/* ── Utility Classes ─────────────────────────────────────────────── */
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.font-mono { font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace; }
+.select-none { user-select: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+/* ── Animations ──────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-in { animation: fadeIn 0.3s ease-out; }
+.animate-fade-in-scale { animation: fadeInScale 0.2s ease-out; }
+.animate-slide-in { animation: slideInRight 0.3s ease-out; }
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-ping { animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite; }
+.animate-spin { animation: spin 1s linear infinite; }
+
+/* ── Global body styling ─────────────────────────────────────────── */
+body {
+  background-color: var(--surface, #faf8ff);
+  color: var(--on-surface, #171c22);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+#root {
+  min-height: 100vh;
+}

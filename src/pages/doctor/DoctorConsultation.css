@@ -1,0 +1,192 @@
+.doctor-consultation {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Patient Banner */
+.patient-banner {
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-xl);
+  padding: var(--gutter-xl);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--gutter-xl);
+  border-top: 4px solid var(--primary);
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: var(--gutter-xl);
+}
+
+.patient-avatar-large {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.demographics-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.demographics-row .divider {
+  color: var(--outline-variant);
+}
+
+.alerts-row {
+  display: flex;
+  gap: 8px;
+}
+
+.mt-sm { margin-top: var(--gutter-sm); }
+
+.banner-right {
+  display: flex;
+  align-items: center;
+  gap: var(--gutter-xl);
+}
+
+.status-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.timer {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.text-mono {
+  font-family: var(--font-mono, monospace);
+}
+
+.banner-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter-sm);
+}
+
+/* Layout */
+.consultation-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: var(--gutter-xl);
+  align-items: start;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter-lg);
+}
+
+/* Tabs */
+.form-tabs {
+  display: flex;
+  gap: var(--gutter-md);
+  border-bottom: 1px solid var(--surface-variant);
+  padding-bottom: 0;
+}
+
+.form-tabs .tab {
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--on-surface-variant);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.form-tabs .tab:hover {
+  background: var(--surface-container-low);
+  color: var(--on-surface);
+}
+
+.form-tabs .tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* Content */
+.clinical-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter-xl);
+  margin-top: var(--gutter-xl);
+}
+
+/* Sidebar */
+.reference-card {
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: var(--gutter-lg);
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--surface-variant);
+}
+
+.card-body {
+  padding: var(--gutter-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter-md);
+}
+
+.context-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.context-item .label {
+  color: var(--on-surface-variant);
+}
+
+.context-item .value {
+  color: var(--on-surface);
+  font-weight: 500;
+}
+
+/* Placeholder */
+.placeholder-tab {
+  padding: 64px 0;
+  text-align: center;
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-lg);
+  margin-top: var(--gutter-xl);
+}
+
+.placeholder-tab .material-symbols-outlined {
+  font-size: 48px;
+  color: var(--outline);
+  margin-bottom: 16px;
+}
+
+.placeholder-tab p {
+  color: var(--on-surface-variant);
+  margin-top: 8px;
+}

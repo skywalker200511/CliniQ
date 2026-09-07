@@ -1,0 +1,115 @@
+.login-selector {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f4fc;
+  padding: var(--gutter-xl);
+}
+
+.login-card {
+  background: white;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  width: 100%;
+  max-width: 480px;
+  overflow: hidden;
+}
+
+.login-brand {
+  padding: 40px var(--gutter-xl) 32px;
+  text-align: center;
+  border-bottom: 1px solid var(--surface-variant);
+}
+
+.login-logo {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+}
+
+.login-title {
+  color: #171c22;
+  margin-bottom: 8px;
+}
+
+.login-subtitle {
+  color: #41474e;
+}
+
+.role-options {
+  padding: 32px var(--gutter-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter-md);
+}
+
+.role-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--gutter-md);
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--outline-variant);
+  background: white;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.role-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.role-text {
+  flex: 1;
+}
+
+.role-name {
+  margin-bottom: 4px;
+}
+
+.arrow-icon {
+  color: var(--outline-variant);
+  transition: transform 0.2s;
+}
+
+.doctor-role:hover {
+  border-color: #006194;
+  background: #f0f4fc;
+}
+.doctor-role:hover .role-icon {
+  background: #006194;
+  color: white;
+}
+.doctor-role:hover .role-name { color: #006194; }
+.doctor-role:hover .arrow-icon {
+  color: #006194;
+  transform: translateX(4px);
+}
+
+.receptionist-role:hover {
+  border-color: #005c55;
+  background: #eff4ff;
+}
+.receptionist-role:hover .role-icon {
+  background: #005c55;
+  color: white;
+}
+.receptionist-role:hover .role-name { color: #005c55; }
+.receptionist-role:hover .arrow-icon {
+  color: #005c55;
+  transform: translateX(4px);
+}
+
+.login-footer {
+  padding: 24px;
+  text-align: center;
+  background: #f8f9ff;
+  color: #72787e;
+  border-top: 1px solid var(--surface-variant);
+}

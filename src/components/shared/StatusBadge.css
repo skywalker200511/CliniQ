@@ -1,0 +1,47 @@
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.badge-icon {
+  font-size: 14px;
+}
+
+.badge-default {
+  background: var(--surface-container-high);
+  color: var(--on-surface-variant);
+}
+
+.badge-primary {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.badge-success {
+  background: #dcfce7; /* Tailwind green-100 */
+  color: #166534; /* Tailwind green-800 */
+}
+
+/* Receptionist module uses teal for success, doctor uses it for secondary. Just hardcoding a reliable success color here for simplicity, or we can use secondary */
+.receptionist-module .badge-success {
+  background: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+
+.badge-warning {
+  background: #fef9c3; /* Tailwind yellow-100 */
+  color: #854d0e; /* Tailwind yellow-800 */
+}
+
+.badge-error {
+  background: var(--error-container);
+  color: var(--on-error-container);
+}

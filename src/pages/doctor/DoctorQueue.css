@@ -1,0 +1,156 @@
+.doctor-queue {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--gutter-xl);
+}
+
+.queue-container {
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+  overflow: hidden;
+}
+
+.queue-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--gutter-md) var(--gutter-lg);
+  border-bottom: 1px solid var(--surface-variant);
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--on-surface-variant);
+  transition: all 0.2s;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.tab:hover {
+  background: var(--surface-container-low);
+  color: var(--on-surface);
+}
+
+.tab.active {
+  background: var(--surface-variant);
+  color: var(--on-surface);
+}
+
+.tab-badge {
+  background: var(--surface-container-highest);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+}
+
+.tab.active .tab-badge {
+  background: var(--surface-container-lowest);
+}
+
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-container-low);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+/* Table */
+.queue-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.queue-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.queue-table th,
+.queue-table td {
+  padding: 16px var(--gutter-lg);
+  text-align: left;
+  border-bottom: 1px solid var(--surface-container);
+}
+
+.queue-table th {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--outline);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--surface-container-lowest);
+}
+
+.queue-table tbody tr:hover {
+  background: var(--surface-container-low);
+}
+
+.highlight-row {
+  background: var(--primary-fixed) !important;
+}
+
+.queue-number {
+  font-weight: 700;
+  color: var(--on-surface-variant);
+}
+
+.patient-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.patient-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface-container-high);
+  color: var(--on-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.btn-sm {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+.btn-sm .material-symbols-outlined {
+  font-size: 16px;
+}
+
+.empty-cell {
+  padding: 0 !important;
+}

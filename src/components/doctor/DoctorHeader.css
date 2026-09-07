@@ -1,0 +1,115 @@
+.doctor-header {
+  height: var(--header-height);
+  padding: 0 var(--gutter-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface-container-lowest);
+  border-bottom: 1px solid var(--surface-variant);
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+.header-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb-item {
+  color: var(--on-surface-variant);
+}
+
+.breadcrumb-separator {
+  color: var(--outline-variant);
+  font-size: 16px;
+}
+
+.breadcrumb-current {
+  color: var(--on-surface);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gutter-md);
+}
+
+.icon-button {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--on-surface-variant);
+  transition: background 0.2s;
+}
+
+.icon-button:hover {
+  background: var(--surface-container-high);
+  color: var(--on-surface);
+}
+
+.icon-button .material-symbols-outlined {
+  font-size: 24px;
+}
+
+.notification-dot {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: var(--surface-container-highest);
+  color: var(--on-surface);
+  font-size: 10px;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--outline-variant);
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: var(--gutter-md);
+}
+
+.header-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.header-user-name {
+  color: var(--on-surface);
+}
+
+.header-user-role {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  margin-top: 2px;
+}
+
+.header-user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  color: var(--on-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

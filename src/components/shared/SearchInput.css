@@ -1,0 +1,73 @@
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--on-surface-variant);
+  pointer-events: none;
+  font-size: 20px;
+}
+
+.search-input {
+  width: 100%;
+  height: var(--control-height);
+  padding: 0 40px;
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-md);
+  color: var(--on-surface);
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.search-input:focus {
+  background: var(--surface-container-lowest);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--surface-variant); /* Primary with opacity in real tailwind, here using variant */
+}
+
+.search-input::placeholder {
+  color: var(--outline);
+}
+
+.search-shortcut {
+  position: absolute;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  height: 22px;
+  background: var(--surface-container-highest);
+  color: var(--on-surface-variant);
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: var(--font-mono, monospace);
+  pointer-events: none;
+}
+
+.search-clear {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--on-surface-variant);
+  border-radius: var(--radius-full);
+}
+
+.search-clear:hover {
+  background: var(--surface-container-highest);
+  color: var(--on-surface);
+}
+
+.search-clear .material-symbols-outlined {
+  font-size: 16px;
+}

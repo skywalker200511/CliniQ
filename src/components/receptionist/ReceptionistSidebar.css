@@ -1,0 +1,198 @@
+.receptionist-sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var(--surface-container-lowest);
+  border-right: 1px solid var(--surface-variant);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.sidebar-brand {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--gutter-lg);
+  gap: var(--gutter-sm);
+}
+
+.brand-logo {
+  width: 24px;
+  height: 24px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+.brand-subtitle {
+  font-size: 11px;
+  color: var(--on-surface-variant);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sidebar-clinic-selector {
+  margin: var(--gutter-md);
+  padding: 8px 12px;
+  background: var(--surface-container-low);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: var(--on-surface);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sidebar-clinic-selector:hover {
+  background: var(--surface-container);
+}
+
+.sidebar-clinic-selector .material-symbols-outlined {
+  font-size: 16px;
+  color: var(--primary);
+}
+
+.clinic-name-text {
+  flex: 1;
+}
+
+.nav-section-title {
+  padding: 0 var(--gutter-xl);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--outline);
+  margin: var(--gutter-md) 0 var(--gutter-sm);
+  letter-spacing: 0.05em;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 0 var(--gutter-md);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  color: var(--on-surface-variant);
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  width: 100%;
+}
+
+.nav-item:hover {
+  background: var(--surface-container);
+  color: var(--on-surface);
+}
+
+.nav-item.active {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.nav-icon {
+  font-size: 20px;
+  margin-right: 12px;
+}
+
+.nav-item.active .nav-icon {
+  font-variation-settings: 'FILL' 1;
+}
+
+.nav-label {
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  text-align: left;
+}
+
+.nav-badge {
+  background: var(--surface-variant);
+  color: var(--on-surface);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.nav-item.active .nav-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--on-primary);
+}
+
+.sidebar-footer {
+  padding: 0 var(--gutter-md) var(--gutter-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: var(--gutter-sm);
+  padding: 12px;
+  background: var(--surface-container-low);
+  border-radius: var(--radius-lg);
+}
+
+.user-avatar {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--secondary-container);
+  color: var(--on-secondary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.avatar-status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background: var(--secondary);
+  border: 2px solid var(--surface-container-low);
+  border-radius: var(--radius-full);
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name {
+  color: var(--on-surface);
+}
+
+.user-role {
+  color: var(--on-surface-variant);
+}
