@@ -41,6 +41,11 @@ function appReducer(state, action) {
       return { ...state, queue: action.payload };
 
     case ACTIONS.SET_USER:
+      if (action.payload) {
+        localStorage.setItem('cliniq_user', JSON.stringify(action.payload));
+      } else {
+        localStorage.removeItem('cliniq_user');
+      }
       return { ...state, currentUser: action.payload };
 
     case ACTIONS.ADD_PATIENT:

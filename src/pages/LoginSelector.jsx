@@ -47,7 +47,7 @@ export default function LoginSelector() {
             onClick={() => handleLogin('receptionist')}
           >
             <div className="role-icon">
-              <span className="material-symbols-outlined">front_desk</span>
+              <span className="material-symbols-outlined">support_agent</span>
             </div>
             <div className="role-text">
               <div className="role-name text-label-lg">Receptionist Module</div>
