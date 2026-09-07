@@ -37,21 +37,39 @@ export default function DoctorConsultation() {
   const [advice, setAdvice] = useState({ text: '', labTests: '', followUpDays: '' });
 
   useEffect(() => {
-    // Find patient and init consultation
-    const found = searchPatients(state, id);
-    if (found.length > 0) {
-      const qEntry = state.queue.find(q => q.patientId === found[0].id && q.status === 'Waiting');
-      if (qEntry) {
-        callPatient(dispatch, qEntry.id);
+    let isMounted = true;
+    
+    const initConsultation = async () => {
+      try {
+        const results = await searchPatients(id);
+        if (!isMounted) return;
+        
+        if (results && results.length > 0) {
+          setPatient(results[0]);
+          
+          const qEntry = state.queue.find(q => q.patientId === results[0].id && q.status === 'Waiting');
+          if (qEntry) {
+            callPatient(dispatch, qEntry.id);
+          }
+        } else {
+          showToast('Patient not found', 'error');
+          navigate('/doctor/queue');
+        }
+      } catch (err) {
+        console.error(err);
+        if (isMounted) {
+          showToast('Patient not found', 'error');
+          navigate('/doctor/queue');
+        }
       }
-
-      setPatient(found[0]);
-      setPatient(found[0]);
-    } else {
-      showToast('Patient not found', 'error');
-      navigate('/doctor/queue');
-    }
-  }, [id, state, dispatch, navigate, showToast]);
+    };
+    
+    initConsultation();
+    
+    return () => {
+      isMounted = false;
+    };
+  }, [id]); // Only run when patient ID changes
 
   const handleSaveDraft = () => {
     showToast('Draft saved successfully', 'success');
