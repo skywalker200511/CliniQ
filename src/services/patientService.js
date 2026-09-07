@@ -102,3 +102,36 @@ export async function getAllPatients(dispatch) {
   }
 }
 
+
+/** Search patients by name, ID, or phone */
+export async function searchPatients(query) {
+  try {
+    let dbQuery = supabase.from('patients').select('*');
+    
+    if (query && query.length >= 2) {
+      const q = query.toLowerCase().trim();
+      dbQuery = dbQuery.or(irst_name.ilike.%%,last_name.ilike.%%,phone_number.ilike.%%,patient_id.eq.);
+    }
+
+    const { data, error } = await dbQuery;
+    if (error) throw error;
+
+    return data.map(p => ({
+      id: p.patient_id,
+      fullName: p.first_name + ' ' + p.last_name,
+      dateOfBirth: p.date_of_birth,
+      gender: p.gender,
+      phone: p.phone_number,
+      bloodGroup: p.blood_group,
+      address: p.address,
+      emergencyContactName: p.emergency_contact_name,
+      emergencyContactPhone: p.emergency_contact_phone,
+      allergies: p.allergies && p.allergies.length > 0 ? p.allergies.join(', ') : 'None',
+      registeredAt: p.created_at,
+      lastVisitDate: null,
+    }));
+  } catch (error) {
+    console.error('Error searching patients:', error);
+    return [];
+  }
+}

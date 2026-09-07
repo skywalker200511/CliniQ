@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAppContext } from '../../data/store';
 import { searchPatients, calculateAge } from '../../services/patientService';
 import { addToQueue } from '../../services/queueService';
@@ -9,8 +9,21 @@ import './ReceptionistPatients.css';
 export default function ReceptionistPatients() {
   const { state, dispatch, showToast } = useAppContext();
   const [searchQuery, setSearchQuery] = useState('');
+  const [patients, setPatients] = useState([]);
   
-  const patients = searchPatients(state, searchQuery);
+  useEffect(() => {
+    const fetchPatients = async () => {
+      const results = await searchPatients(searchQuery);
+      setPatients(results);
+    };
+    
+    // Add a small debounce to prevent too many DB calls
+    const timeoutId = setTimeout(() => {
+      fetchPatients();
+    }, 300);
+    
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery]);
 
   const handleAddToQueue = (patient) => {
     addToQueue(dispatch, state, {
