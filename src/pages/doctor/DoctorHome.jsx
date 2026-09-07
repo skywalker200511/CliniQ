@@ -127,9 +127,15 @@ export default function DoctorHome() {
             )}
 
             <div className="workspace-actions">
-              <button className="btn btn-full btn-secondary" disabled>
-                <span className="material-symbols-outlined">play_arrow</span> Start Consultation
-              </button>
+              {servingPatient ? (
+                <Link to={`/doctor/consultation/${servingPatient.patientId}`} className="btn btn-full btn-primary">
+                  <span className="material-symbols-outlined">play_arrow</span> Start Consultation
+                </Link>
+              ) : (
+                <button className="btn btn-full btn-secondary" disabled>
+                  <span className="material-symbols-outlined">play_arrow</span> Start Consultation
+                </button>
+              )}
               <Link to="/doctor/queue" className="btn btn-full btn-surface">
                 <span className="material-symbols-outlined">format_list_bulleted</span> View Patient Queue
               </Link>

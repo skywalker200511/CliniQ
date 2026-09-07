@@ -18,8 +18,13 @@ export default function DoctorQueue() {
   );
 
   const waitingCount = state.queue.filter(q => q.status === 'Waiting').length;
+  const servingCount = state.queue.filter(q => q.status === 'With Doctor' && (!q.doctorId || q.doctorId === doctorId)).length;
 
   const handleCallNext = async () => {
+    if (servingCount > 0) {
+      showToast('You must complete the current consultation before calling another patient.', 'error');
+      return;
+    }
     const nextPatient = await callNextPatient(dispatch, state, doctorId);
     if (nextPatient) {
       showToast(`Called ${nextPatient.patientName} to Room 102`);
@@ -46,7 +51,7 @@ export default function DoctorQueue() {
           <button 
             className="btn btn-primary" 
             onClick={handleCallNext}
-            disabled={waitingCount === 0}
+            disabled={waitingCount === 0 || servingCount > 0}
           >
             <span className="material-symbols-outlined">campaign</span> Call Next Patient
           </button>
