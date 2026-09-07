@@ -106,6 +106,13 @@ export default function DoctorHome() {
               </div>
             </div>
 
+            {servingPatient ? (
+              <div className="serving-patient-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <h3 className="text-headline-md">{servingPatient.patientName}</h3>
+                <p className="text-body-lg">MRN: {servingPatient.patientMrn}</p>
+                <p className="text-body-md">Status: {servingPatient.status}</p>
+              </div>
+            ) : (
             <div className="workspace-empty-state">
               <div className="workspace-icon">
                 <span className="material-symbols-outlined">person_check</span>
@@ -117,6 +124,7 @@ export default function DoctorHome() {
                 </p>
               </div>
             </div>
+            )}
 
             <div className="workspace-actions">
               <button className="btn btn-full btn-secondary" disabled>
@@ -146,6 +154,19 @@ export default function DoctorHome() {
               <button className="icon-button"><span className="material-symbols-outlined">refresh</span></button>
             </div>
 
+            {queueStats.total > 0 ? (
+              <div className="queue-list mt-lg">
+                {state.queue.slice(0, 5).map(q => (
+                  <div key={q.id} style={{ padding: '16px', borderBottom: '1px solid var(--outline-variant)' }}>
+                    <div className="text-label-md">{q.patientName}</div>
+                    <div className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
+                      {q.status} • Arrived: {q.arrivalTime}
+                    </div>
+                  </div>
+                ))}
+                <Link to="/doctor/queue" className="btn btn-outline mt-md" style={{ width: '100%' }}>View Full Queue</Link>
+              </div>
+            ) : (
             <div className="empty-state-panel mt-lg">
               <div className="empty-state-icon">
                 <span className="material-symbols-outlined">inbox</span>
@@ -158,6 +179,7 @@ export default function DoctorHome() {
                 View Full Queue <span className="material-symbols-outlined">arrow_forward</span>
               </Link>
             </div>
+            )}
           </div>
         </div>
 

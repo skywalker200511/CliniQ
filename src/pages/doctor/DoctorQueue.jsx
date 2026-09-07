@@ -19,8 +19,8 @@ export default function DoctorQueue() {
 
   const waitingCount = state.queue.filter(q => q.status === 'Waiting').length;
 
-  const handleCallNext = () => {
-    const nextPatient = callNextPatient(dispatch, state, doctorId);
+  const handleCallNext = async () => {
+    const nextPatient = await callNextPatient(dispatch, state, doctorId);
     if (nextPatient) {
       showToast(`Called ${nextPatient.patientName} to Room 102`);
     } else {
