@@ -6,6 +6,7 @@ import DoctorLayout from './components/doctor/DoctorLayout';
 import DoctorHome from './pages/doctor/DoctorHome';
 import DoctorQueue from './pages/doctor/DoctorQueue';
 import DoctorPatients from './pages/doctor/DoctorPatients';
+import DoctorConsultations from './pages/doctor/DoctorConsultations';
 import DoctorConsultation from './pages/doctor/DoctorConsultation';
 import DoctorMessages from './pages/doctor/DoctorMessages';
 
@@ -36,7 +37,7 @@ export default function App() {
           <Route index element={<DoctorHome />} />
           <Route path="queue" element={<DoctorQueue />} />
           <Route path="patients" element={<DoctorPatients />} />
-          <Route path="consultations" element={<Placeholder title="Doctor Consultations" />} />
+          <Route path="consultations" element={<DoctorConsultations />} />
           <Route path="consultation/:id" element={<DoctorConsultation />} />
           <Route path="messages" element={<DoctorMessages />} />
           <Route path="follow-ups" element={<Placeholder title="Follow-ups" />} />
