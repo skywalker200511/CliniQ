@@ -16,6 +16,7 @@ const initialState = {
 export const ACTIONS = {
   SET_USER: 'SET_USER',
   SET_QUEUE: 'SET_QUEUE',
+  SET_MESSAGES: 'SET_MESSAGES',
   // Patient actions
   ADD_PATIENT: 'ADD_PATIENT',
   UPDATE_PATIENT: 'UPDATE_PATIENT',
@@ -39,6 +40,9 @@ function appReducer(state, action) {
   switch (action.type) {
     case ACTIONS.SET_QUEUE:
       return { ...state, queue: action.payload };
+
+    case ACTIONS.SET_MESSAGES:
+      return { ...state, messages: action.payload };
 
     case ACTIONS.SET_USER:
       if (action.payload) {
@@ -135,8 +139,34 @@ export function AppProvider({ children }) {
       })
       .subscribe();
 
+    const fetchMessages = async () => {
+      const { data } = await supabase.from('messages').select('*');
+      if (data) {
+        const formatted = data.map(m => ({
+          id: m.id,
+          senderId: m.sender_id,
+          senderRole: m.sender_role,
+          senderName: m.sender_name,
+          receiverId: m.receiver_id,
+          receiverRole: m.receiver_role,
+          content: m.content,
+          timestamp: m.created_at,
+          read: m.read
+        }));
+        dispatch({ type: ACTIONS.SET_MESSAGES, payload: formatted });
+      }
+    };
+    fetchMessages();
+
+    const msgSub = supabase.channel('msg_channel')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, () => {
+        fetchMessages();
+      })
+      .subscribe();
+
     return () => {
       supabase.removeChannel(subscription);
+      supabase.removeChannel(msgSub);
     };
   }, []);
   const [state, dispatch] = useReducer(appReducer, initialState);

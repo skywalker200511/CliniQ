@@ -1,50 +1,47 @@
-/**
- * Message Service — Internal messaging between Doctor and Receptionist.
- */
+import { supabase } from '../lib/supabase';
 import { ACTIONS } from '../data/store';
 
-/** Send a new message */
-export function sendMessage(dispatch, { senderId, senderRole, senderName, receiverId, receiverRole, content }) {
-  const message = {
-    id: `msg-${Date.now()}`,
-    senderId,
-    senderRole,
-    senderName,
-    receiverId,
-    receiverRole,
-    content,
-    timestamp: new Date().toISOString(),
-    read: false,
-  };
-  dispatch({ type: ACTIONS.ADD_MESSAGE, payload: message });
-  return message;
+export async function sendMessage(dispatch, { senderId, senderRole, senderName, receiverId, receiverRole, content }) {
+  const { data, error } = await supabase
+    .from('messages')
+    .insert([{
+      sender_id: senderId,
+      sender_role: senderRole,
+      sender_name: senderName,
+      receiver_id: receiverId,
+      receiver_role: receiverRole,
+      content,
+      read: false
+    }])
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error sending message:', error);
+    throw error;
+  }
+  return data;
 }
 
-/** Get all messages for a user */
 export function getMessages(state, userId) {
-  return state.messages.filter(m => m.senderId === userId || m.receiverId === userId)
+  return state.messages
+    .filter(m => m.senderId === userId || m.receiverId === userId)
     .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 }
 
-/** Get conversation between two users */
-export function getConversation(state, user1Id, user2Id) {
-  return state.messages.filter(m =>
-    (m.senderId === user1Id && m.receiverId === user2Id) ||
-    (m.senderId === user2Id && m.receiverId === user1Id)
-  ).sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+export async function markAsRead(dispatch, messageId) {
+  const { error } = await supabase
+    .from('messages')
+    .update({ read: true })
+    .eq('id', messageId);
+    
+  if (error) console.error('Error marking as read:', error);
 }
 
-/** Mark a message as read */
-export function markAsRead(dispatch, messageId) {
-  dispatch({ type: ACTIONS.MARK_MESSAGE_READ, payload: messageId });
-}
-
-/** Get unread message count for a user */
 export function getUnreadCount(state, userId) {
   return state.messages.filter(m => m.receiverId === userId && !m.read).length;
 }
 
-/** Format timestamp for display */
 export function formatMessageTime(timestamp) {
   const date = new Date(timestamp);
   const now = new Date();

@@ -42,7 +42,7 @@ export default function DoctorMessages() {
           <div className="chat-header">
             <div className="chat-recipient">
               <div className="recipient-avatar">
-                <span className="material-symbols-outlined">front_desk</span>
+                <span className="material-symbols-outlined">support_agent</span>
               </div>
               <div className="recipient-info">
                 <div className="text-label-md">Reception / Front Desk</div>
