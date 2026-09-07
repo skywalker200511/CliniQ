@@ -8,6 +8,7 @@ export default function DoctorConsultations() {
   const [consultations, setConsultations] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
+  const [selectedCase, setSelectedCase] = useState(null);
 
   useEffect(() => {
     const fetchConsultations = async () => {
@@ -111,7 +112,11 @@ export default function DoctorConsultations() {
                       </span>
                     </td>
                     <td className="text-right actions-cell">
-                      <button className="btn btn-outline" style={{ height: '32px', padding: '0 12px', fontSize: '13px' }}>
+                      <button 
+                        className="btn btn-outline" 
+                        style={{ height: '32px', padding: '0 12px', fontSize: '13px' }}
+                        onClick={() => setSelectedCase(c)}
+                      >
                         View Case Sheet
                       </button>
                     </td>
@@ -132,6 +137,108 @@ export default function DoctorConsultations() {
           </table>
         </div>
       </div>
+
+      {/* Case Sheet Modal */}
+      {selectedCase && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '24px' }}>
+          <div style={{ background: 'var(--surface)', width: '100%', maxWidth: '800px', maxHeight: '90vh', overflowY: 'auto', borderRadius: '12px', padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px', position: 'relative' }}>
+            <button 
+              className="icon-button" 
+              style={{ position: 'absolute', top: '16px', right: '16px' }}
+              onClick={() => setSelectedCase(null)}
+            >
+              <span className="material-symbols-outlined">close</span>
+            </button>
+
+            <div>
+              <h2 className="text-headline-md">Case Sheet • Visit {selectedCase.visit_number}</h2>
+              <p className="text-body-md" style={{ color: 'var(--on-surface-variant)' }}>
+                {selectedCase.patients ? (selectedCase.patients.first_name + ' ' + selectedCase.patients.last_name) : 'Unknown Patient'} • {new Date(selectedCase.created_at).toLocaleString()}
+              </p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+              <div style={{ background: 'var(--surface-container-low)', padding: '16px', borderRadius: '8px' }}>
+                <h3 className="text-label-md" style={{ marginBottom: '12px', color: 'var(--primary)' }}>Vitals</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                  <div className="text-body-sm"><b>BP:</b> {selectedCase.vitals?.bp || '-'}</div>
+                  <div className="text-body-sm"><b>HR:</b> {selectedCase.vitals?.hr || '-'}</div>
+                  <div className="text-body-sm"><b>Temp:</b> {selectedCase.vitals?.temp || '-'}</div>
+                  <div className="text-body-sm"><b>SpO2:</b> {selectedCase.vitals?.spo2 || '-'}</div>
+                  <div className="text-body-sm"><b>Weight:</b> {selectedCase.vitals?.weight || '-'}</div>
+                  <div className="text-body-sm"><b>Height:</b> {selectedCase.vitals?.height || '-'}</div>
+                </div>
+              </div>
+
+              <div style={{ background: 'var(--surface-container-low)', padding: '16px', borderRadius: '8px' }}>
+                <h3 className="text-label-md" style={{ marginBottom: '12px', color: 'var(--primary)' }}>Diagnosis</h3>
+                <div className="text-body-md" style={{ fontWeight: 'bold' }}>{selectedCase.diagnosis?.primary || 'None'}</div>
+                {selectedCase.diagnosis?.secondary?.length > 0 && (
+                  <div className="text-body-sm mt-sm">Secondary: {selectedCase.diagnosis.secondary.join(', ')}</div>
+                )}
+                <div className="text-body-sm mt-sm">Status: {selectedCase.diagnosis?.status || 'Unknown'}</div>
+              </div>
+            </div>
+
+            {selectedCase.symptoms?.length > 0 && (
+              <div>
+                <h3 className="text-label-md" style={{ marginBottom: '8px' }}>Symptoms</h3>
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                  {selectedCase.symptoms.map((s, i) => (
+                    <span key={i} className="demographic-pill border">
+                      {s.name} ({s.duration}, {s.severity})
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {selectedCase.prescriptions?.length > 0 && (
+              <div>
+                <h3 className="text-label-md" style={{ marginBottom: '8px' }}>Prescriptions</h3>
+                <table className="directory-table" style={{ background: 'var(--surface-container-lowest)' }}>
+                  <thead>
+                    <tr>
+                      <th style={{ padding: '8px' }}>Medication</th>
+                      <th style={{ padding: '8px' }}>Dosage</th>
+                      <th style={{ padding: '8px' }}>Frequency</th>
+                      <th style={{ padding: '8px' }}>Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedCase.prescriptions.map((rx, i) => (
+                      <tr key={i}>
+                        <td style={{ padding: '8px' }} className="text-body-sm"><b>{rx.medication}</b></td>
+                        <td style={{ padding: '8px' }} className="text-body-sm">{rx.dosage}</td>
+                        <td style={{ padding: '8px' }} className="text-body-sm">{rx.frequency}</td>
+                        <td style={{ padding: '8px' }} className="text-body-sm">{rx.duration}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {selectedCase.advice?.labTests && (
+              <div>
+                <h3 className="text-label-md" style={{ marginBottom: '8px' }}>Lab Tests Ordered</h3>
+                <div className="text-body-sm" style={{ padding: '12px', background: 'var(--surface-container-low)', borderRadius: '6px' }}>
+                  {selectedCase.advice.labTests}
+                </div>
+              </div>
+            )}
+
+            {selectedCase.notes && (
+              <div>
+                <h3 className="text-label-md" style={{ marginBottom: '8px' }}>Clinical Notes</h3>
+                <div className="text-body-sm" style={{ padding: '12px', background: 'var(--surface-container-low)', borderRadius: '6px', whiteSpace: 'pre-wrap' }}>
+                  {selectedCase.notes}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
