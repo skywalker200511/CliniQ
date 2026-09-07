@@ -41,7 +41,7 @@ export default function ReceptionistRegister() {
     setFormData(prev => ({ ...prev, bloodGroup: bg }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Basic validation
@@ -63,10 +63,14 @@ export default function ReceptionistRegister() {
       registeredBy: state.currentUser?.id || 'rec-001'
     };
 
-    const newPatient = createPatient(dispatch, patientData);
-    setNewPatientId(newPatient.id);
-    setShowSuccessModal(true);
-    showToast('Patient registered successfully');
+    try {
+      const newPatient = await createPatient(dispatch, patientData);
+      setNewPatientId(newPatient.id);
+      setShowSuccessModal(true);
+      showToast('Patient registered successfully');
+    } catch (error) {
+      showToast('Failed to register patient: ' + error.message, 'error');
+    }
   };
 
   const handleAddToQueue = () => {

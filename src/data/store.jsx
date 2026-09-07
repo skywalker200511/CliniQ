@@ -4,10 +4,10 @@ import { INITIAL_PATIENTS, INITIAL_QUEUE, INITIAL_CONSULTATIONS, INITIAL_MESSAGE
 /* ── Initial State ───────────────────────────────────────────────── */
 const initialState = {
   currentUser: null, // Will be set on role selection
-  patients: [...INITIAL_PATIENTS],
-  queue: [...INITIAL_QUEUE],
-  consultations: [...INITIAL_CONSULTATIONS],
-  messages: [...INITIAL_MESSAGES],
+  patients: [],
+  queue: [],
+  consultations: [],
+  messages: [],
   toasts: [],
 };
 
