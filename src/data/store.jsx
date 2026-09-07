@@ -1,4 +1,5 @@
-import { createContext, useContext, useReducer, useCallback } from 'react';
+import { createContext, useContext, useReducer, useCallback, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
 import { INITIAL_PATIENTS, INITIAL_QUEUE, INITIAL_CONSULTATIONS, INITIAL_MESSAGES, USERS } from './mockData';
 
 /* ── Initial State ───────────────────────────────────────────────── */
@@ -14,6 +15,7 @@ const initialState = {
 /* ── Action Types ────────────────────────────────────────────────── */
 export const ACTIONS = {
   SET_USER: 'SET_USER',
+  SET_QUEUE: 'SET_QUEUE',
   // Patient actions
   ADD_PATIENT: 'ADD_PATIENT',
   UPDATE_PATIENT: 'UPDATE_PATIENT',
@@ -35,6 +37,9 @@ export const ACTIONS = {
 /* ── Reducer ─────────────────────────────────────────────────────── */
 function appReducer(state, action) {
   switch (action.type) {
+    case ACTIONS.SET_QUEUE:
+      return { ...state, queue: action.payload };
+
     case ACTIONS.SET_USER:
       return { ...state, currentUser: action.payload };
 
@@ -94,6 +99,41 @@ function appReducer(state, action) {
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
+
+
+  useEffect(() => {
+    const fetchQueue = async () => {
+      const { data } = await supabase.from('queue').select('*');
+      if (data) {
+        const formatted = data.map(q => ({
+          id: q.id,
+          patientId: q.patient_id,
+          patientName: q.patient_name,
+          patientMrn: q.patient_id,
+          doctorId: q.doctor_id,
+          queueNumber: q.queue_number,
+          status: q.status,
+          arrivalTime: q.arrival_time,
+          appointmentTime: q.appointment_time,
+          calledAt: q.called_at,
+          completedAt: q.completed_at
+        }));
+        dispatch({ type: ACTIONS.SET_QUEUE, payload: formatted });
+      }
+    };
+    fetchQueue();
+
+    const subscription = supabase
+      .channel('queue_channel')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'queue' }, () => {
+        fetchQueue();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(subscription);
+    };
+  }, []);
   const [state, dispatch] = useReducer(appReducer, initialState);
 
   const showToast = useCallback((message, icon = 'check_circle') => {
