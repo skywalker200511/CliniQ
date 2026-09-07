@@ -57,7 +57,7 @@ export default function DoctorConsultations() {
               value={searchQuery}
               onChange={setSearchQuery}
               placeholder="Search by Patient Name or Diagnosis"
-              shortcut="?K"
+              shortcut="âŒ˜K"
               autoFocus={true}
             />
           </div>
@@ -151,9 +151,9 @@ export default function DoctorConsultations() {
             </button>
 
             <div>
-              <h2 className="text-headline-md">Case Sheet • Visit {selectedCase.visit_number}</h2>
+              <h2 className="text-headline-md">Case Sheet ï¿½ Visit {selectedCase.visit_number}</h2>
               <p className="text-body-md" style={{ color: 'var(--on-surface-variant)' }}>
-                {selectedCase.patients ? (selectedCase.patients.first_name + ' ' + selectedCase.patients.last_name) : 'Unknown Patient'} • {new Date(selectedCase.created_at).toLocaleString()}
+                {selectedCase.patients ? (selectedCase.patients.first_name + ' ' + selectedCase.patients.last_name) : 'Unknown Patient'} ï¿½ {new Date(selectedCase.created_at).toLocaleString()}
               </p>
             </div>
 
