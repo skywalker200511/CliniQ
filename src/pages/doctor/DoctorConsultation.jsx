@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../data/store';
 import { searchPatients, calculateAge } from '../../services/patientService';
 import { saveConsultation } from '../../services/consultationService';
-import { completeQueueEntry } from '../../services/queueService';
+import { completeQueueEntry, callPatient } from '../../services/queueService';
 import StatusBadge from '../../components/shared/StatusBadge';
 import './DoctorConsultation.css';
 
@@ -40,6 +40,11 @@ export default function DoctorConsultation() {
     // Find patient and init consultation
     const found = searchPatients(state, id);
     if (found.length > 0) {
+      const qEntry = state.queue.find(q => q.patientId === found[0].id && q.status === 'Waiting');
+      if (qEntry) {
+        callPatient(dispatch, qEntry.id);
+      }
+
       setPatient(found[0]);
       setPatient(found[0]);
     } else {

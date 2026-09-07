@@ -8,6 +8,8 @@ export default function DoctorHome() {
   const { state } = useAppContext();
   const queueStats = getQueueStats(state);
   const servingPatient = getCurrentlyServing(state);
+  const nextWaitingPatient = state.queue.find(q => q.status === 'Waiting');
+  const displayPatient = servingPatient || nextWaitingPatient;
   
   // Get recent messages for doctor
   const recentMessages = state.messages
@@ -106,11 +108,11 @@ export default function DoctorHome() {
               </div>
             </div>
 
-            {servingPatient ? (
+            {displayPatient ? (
               <div className="serving-patient-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <h3 className="text-headline-md">{servingPatient.patientName}</h3>
-                <p className="text-body-lg">MRN: {servingPatient.patientMrn}</p>
-                <p className="text-body-md">Status: {servingPatient.status}</p>
+                <h3 className="text-headline-md">{displayPatient.patientName}</h3>
+                <p className="text-body-lg">MRN: {displayPatient.patientMrn}</p>
+                <p className="text-body-md">Status: <span style={{ fontWeight: 'bold', color: displayPatient.status === 'Waiting' ? 'var(--warning)' : 'var(--primary)' }}>{displayPatient.status}</span></p>
               </div>
             ) : (
             <div className="workspace-empty-state">
@@ -127,8 +129,8 @@ export default function DoctorHome() {
             )}
 
             <div className="workspace-actions">
-              {servingPatient ? (
-                <Link to={`/doctor/consultation/${servingPatient.patientId}`} className="btn btn-full btn-primary">
+              {displayPatient ? (
+                <Link to={`/doctor/consultation/${displayPatient.patientId}`} className="btn btn-full btn-primary">
                   <span className="material-symbols-outlined">play_arrow</span> Start Consultation
                 </Link>
               ) : (
