@@ -124,7 +124,7 @@ export async function searchPatients(query) {
     
     if (query && query.length >= 2) {
       const q = query.toLowerCase().trim();
-      dbQuery = dbQuery.or(irst_name.ilike.% + ${q} + %,last_name.ilike.% + ${q} + %,phone_number.ilike.% + ${q} + %,patient_id.eq. + ${q});
+      dbQuery = dbQuery.or('first_name.ilike.%' + q + '%,last_name.ilike.%' + q + '%,phone_number.ilike.%' + q + '%,patient_id.eq.' + q);
     }
 
     const { data, error } = await dbQuery;
