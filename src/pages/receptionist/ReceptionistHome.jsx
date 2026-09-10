@@ -157,7 +157,7 @@ export default function ReceptionistHome() {
               </div>
             </div>
 
-            {queueStats.waiting === 0 && (
+            {queueStats.waiting === 0 ? (
               <div className="empty-queue-state">
                 <div className="empty-icon"><span className="material-symbols-outlined">chair</span></div>
                 <h3 className="text-headline-sm">No patients are currently waiting</h3>
@@ -169,6 +169,26 @@ export default function ReceptionistHome() {
                     <span className="material-symbols-outlined">add</span> Quick Add to Queue
                   </button>
                 </div>
+              </div>
+            ) : (
+              <div className="queue-list" style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <h3 className="text-label-md" style={{ color: 'var(--on-surface-variant)', marginBottom: '8px' }}>CURRENTLY WAITING</h3>
+                {state.queue.filter(q => q.status === 'Waiting').map((patient, idx) => (
+                  <div key={patient.id} style={{ display: 'flex', alignItems: 'center', padding: '12px 16px', background: 'var(--surface-container-low)', borderRadius: '8px' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--primary-container)', color: 'var(--on-primary-container)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '12px', marginRight: '16px' }}>
+                      {patient.queueNumber}
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div className="text-label-md">{patient.patientName}</div>
+                      <div className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>Arrived at {patient.arrivalTime} • {patient.appointmentTime}</div>
+                    </div>
+                    <StatusBadge status="Waiting" />
+                  </div>
+                ))}
+                
+                <Link to="/receptionist/queue" className="btn btn-outline" style={{ marginTop: '12px', alignSelf: 'center' }}>
+                  View Full Queue Management
+                </Link>
               </div>
             )}
           </div>
