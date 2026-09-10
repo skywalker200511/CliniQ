@@ -5,6 +5,7 @@ import { getQueueStats, addToQueue } from '../../services/queueService';
 import { searchPatients } from '../../services/patientService';
 import Modal from '../../components/shared/Modal';
 import SearchInput from '../../components/shared/SearchInput';
+import StatusBadge from '../../components/shared/StatusBadge';
 import './ReceptionistHome.css';
 
 export default function ReceptionistHome() {
