@@ -1,5 +1,5 @@
 /**
- * CareTrack Data Models
+ * Cliniq Data Models
  * JSDoc type definitions for the application data layer.
  * These serve as documentation and can be used for validation.
  */

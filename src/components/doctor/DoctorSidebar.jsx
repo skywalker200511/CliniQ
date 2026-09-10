@@ -13,26 +13,23 @@ export default function DoctorSidebar() {
     { to: '/doctor/queue', icon: 'group', label: 'Queue', count: queueCount },
     { to: '/doctor/patients', icon: 'patient_list', label: 'Patients' },
     { to: '/doctor/consultations', icon: 'stethoscope', label: 'Consultations' },
-    { to: '/doctor/follow-ups', icon: 'event', label: 'Follow-ups' },
     { to: '/doctor/messages', icon: 'chat_bubble', label: 'Messages', count: unreadMessages },
-    { to: '/doctor/documents', icon: 'folder', label: 'Documents' },
   ];
 
   return (
     <aside className="doctor-sidebar">
       <div className="sidebar-brand">
         <div className="brand-logo">
-          <img src="/logo.svg" alt="CareTrack Logo" />
+          <img src="/logo.svg" alt="Cliniq Logo" />
         </div>
-        <div className="brand-name">CareTrack</div>
+        <div className="brand-name">Cliniq</div>
       </div>
 
       <div className="sidebar-clinic-selector">
         <div className="clinic-info">
-          <div className="clinic-name text-label-md">CareTrack Clinic</div>
+          <div className="clinic-name text-label-md">Cliniq Clinic</div>
           <div className="clinic-branch text-body-sm">Main Branch</div>
         </div>
-        <span className="material-symbols-outlined expand-icon">unfold_more</span>
       </div>
 
       <nav className="sidebar-nav">
@@ -53,14 +50,6 @@ export default function DoctorSidebar() {
       </nav>
 
       <div className="sidebar-footer">
-        <button className="nav-item">
-          <span className="material-symbols-outlined nav-icon">settings</span>
-          <span className="nav-label">Settings</span>
-        </button>
-        <button className="nav-item">
-          <span className="material-symbols-outlined nav-icon">help</span>
-          <span className="nav-label">Help</span>
-        </button>
         <button className="nav-item" onClick={() => {
           window.location.href = '/';
           dispatch({ type: 'SET_USER', payload: null });

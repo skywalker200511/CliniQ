@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import StatusBadge from '../../components/shared/StatusBadge';
 import './ReceptionistHeader.css';
 
@@ -21,19 +21,14 @@ export default function ReceptionistHeader() {
 
       <div className="header-actions">
         <StatusBadge 
-          status="Dr. Sarah Jenkins • In Room 102 (Available)" 
+          status="Doctor • In Room 102 (Available)" 
           type="primary"
           icon="circle"
         />
         
-        <button className="icon-button" aria-label="Messages">
+        <Link to="/receptionist/messages" className="icon-button" aria-label="Messages">
           <span className="material-symbols-outlined">chat_bubble</span>
-        </button>
-        
-        <button className="icon-button" aria-label="Notifications">
-          <span className="material-symbols-outlined">notifications</span>
-          <span className="notification-dot">0</span>
-        </button>
+        </Link>
 
         <div className="header-user-avatar">
           <span className="material-symbols-outlined">person</span>

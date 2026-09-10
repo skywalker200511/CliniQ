@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { useAppContext } from '../../data/store';
 import StatusBadge from '../../components/shared/StatusBadge';
 import './DoctorHeader.css';
@@ -28,20 +28,15 @@ export default function DoctorHeader() {
           type="success" 
         />
         
-        <button className="icon-button" aria-label="Notifications">
-          <span className="material-symbols-outlined">notifications</span>
-          <span className="notification-dot">0</span>
-        </button>
-        
-        <button className="icon-button" aria-label="Messages">
+        <Link to="/doctor/messages" className="icon-button" aria-label="Messages">
           <span className="material-symbols-outlined">mail</span>
-        </button>
+        </Link>
 
         <div className="header-divider"></div>
 
         <div className="header-user">
           <div className="header-user-info">
-            <span className="header-user-name text-label-md">{user?.fullName || 'Dr. Jenkins'}</span>
+            <span className="header-user-name text-label-md">{user?.fullName}</span>
             <span className="header-user-role text-label-sm">Doctor</span>
           </div>
           <div className="header-user-avatar">

@@ -87,9 +87,6 @@ export default function ReceptionistQueue() {
                 placeholder="Search queue by name or MRN"
               />
             </div>
-            <button className="btn btn-outline">
-              <span className="material-symbols-outlined">filter_list</span> Filter
-            </button>
           </div>
         </div>
 
@@ -122,14 +119,6 @@ export default function ReceptionistQueue() {
                       <StatusBadge status={entry.status} />
                     </td>
                     <td className="text-right actions-cell">
-                      <button className="icon-button small" title="View Patient">
-                        <span className="material-symbols-outlined">visibility</span>
-                      </button>
-                      {entry.status === 'Waiting' && (
-                        <button className="icon-button small primary-color" title="Call to Doctor">
-                          <span className="material-symbols-outlined">campaign</span>
-                        </button>
-                      )}
                       <button 
                         className="icon-button small" 
                         title="Remove from queue"

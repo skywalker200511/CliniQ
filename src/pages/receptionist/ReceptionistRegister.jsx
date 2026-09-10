@@ -373,7 +373,7 @@ export default function ReceptionistRegister() {
             <div className="chamber-item">
               <div className="chamber-avatar busy">101</div>
               <div className="chamber-info">
-                <div className="text-label-md">Dr. Sarah Jenkins</div>
+                <div className="text-label-md">Doctor</div>
                 <div className="text-body-sm">General Medicine • In Consult</div>
               </div>
               <span className="status-pill-small busy">Busy</span>

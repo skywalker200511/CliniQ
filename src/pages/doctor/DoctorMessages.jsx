@@ -16,8 +16,8 @@ export default function DoctorMessages() {
 
     sendMessage(dispatch, {
       senderId: currentUser?.id || 'doc-001',
-      senderRole: 'doctor',
-      senderName: currentUser?.fullName || 'Dr. Sarah Jenkins',
+      senderRole: currentUser?.role || 'doctor',
+      senderName: currentUser?.fullName || 'Doctor',
       receiverId: 'rec-001', // Sending to front desk for demo
       receiverRole: 'receptionist',
       content: newMessage.trim(),

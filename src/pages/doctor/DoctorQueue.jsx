@@ -107,20 +107,12 @@ export default function DoctorQueue() {
                       <StatusBadge status={entry.status} />
                     </td>
                     <td className="text-right">
-                      {entry.status === 'With Doctor' ? (
+                      {entry.status === 'With Doctor' && (
                         <button 
                           className="btn btn-primary btn-sm"
                           onClick={() => handleStartConsultation(entry.patientId)}
                         >
                           <span className="material-symbols-outlined">edit_note</span> Case Sheet
-                        </button>
-                      ) : entry.status === 'Waiting' ? (
-                        <button className="btn btn-outline btn-sm">
-                          <span className="material-symbols-outlined">visibility</span> View Chart
-                        </button>
-                      ) : (
-                        <button className="btn btn-surface btn-sm">
-                          <span className="material-symbols-outlined">description</span> View Notes
                         </button>
                       )}
                     </td>

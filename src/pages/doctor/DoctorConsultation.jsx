@@ -21,7 +21,6 @@ export default function DoctorConsultation() {
   
   const [patient, setPatient] = useState(null);
   const [consultationId, setConsultationId] = useState(null);
-  const [activeTab, setActiveTab] = useState('clinical');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Form State
@@ -146,55 +145,15 @@ export default function DoctorConsultation() {
 
       <div className="consultation-layout">
         <div className="main-content">
-          <div className="form-tabs">
-            <button 
-              className={`tab ${activeTab === 'clinical' ? 'active' : ''}`}
-              onClick={() => setActiveTab('clinical')}
-            >
-              Clinical Examination
-            </button>
-            <button 
-              className={`tab ${activeTab === 'history' ? 'active' : ''}`}
-              onClick={() => setActiveTab('history')}
-            >
-              Past History
-            </button>
-            <button 
-              className={`tab ${activeTab === 'documents' ? 'active' : ''}`}
-              onClick={() => setActiveTab('documents')}
-            >
-              Lab & Documents
-            </button>
-          </div>
-
           <div className="tab-content">
-            {activeTab === 'clinical' && (
-              <div className="clinical-sections">
-                <VitalsSection vitals={vitals} setVitals={setVitals} />
-                <SymptomsSection symptoms={symptoms} setSymptoms={setSymptoms} />
-                <DiagnosisSection diagnosis={diagnosis} setDiagnosis={setDiagnosis} />
-                <PrescriptionSection prescriptions={prescriptions} setPrescriptions={setPrescriptions} />
-                <NotesSection notes={notes} setNotes={setNotes} />
-                <AdviceSection advice={advice} setAdvice={setAdvice} />
-              </div>
-            )}
-            
-            {activeTab === 'history' && (
-              <div className="placeholder-tab">
-                <span className="material-symbols-outlined">history</span>
-                <h3>No Past History Found</h3>
-                <p>This is the first visit for this patient.</p>
-              </div>
-            )}
-
-            {activeTab === 'documents' && (
-              <div className="placeholder-tab">
-                <span className="material-symbols-outlined">folder</span>
-                <h3>No Documents Uploaded</h3>
-                <p>Upload lab reports, scans, or previous prescriptions.</p>
-                <button className="btn btn-outline mt-md">Upload Document</button>
-              </div>
-            )}
+            <div className="clinical-sections">
+              <VitalsSection vitals={vitals} setVitals={setVitals} />
+              <SymptomsSection symptoms={symptoms} setSymptoms={setSymptoms} />
+              <DiagnosisSection diagnosis={diagnosis} setDiagnosis={setDiagnosis} />
+              <PrescriptionSection prescriptions={prescriptions} setPrescriptions={setPrescriptions} />
+              <NotesSection notes={notes} setNotes={setNotes} />
+              <AdviceSection advice={advice} setAdvice={setAdvice} />
+            </div>
           </div>
         </div>
 
@@ -206,12 +165,46 @@ export default function DoctorConsultation() {
             </div>
             <div className="card-body">
               <div className="history-item" style={{ marginBottom: '12px' }}>
-                <span className="text-label-sm label" style={{ display: 'block', color: 'var(--on-surface-variant)' }}>Chronic Conditions</span>
+                <span className="text-label-sm label" style={{ display: 'block', color: 'var(--on-surface-variant)' }}>Medical Conditions</span>
                 <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginTop: '4px' }}>
-                  <span className="demographic-pill warning">Hypertension</span>
-                  <span className="demographic-pill">Asthma (Childhood)</span>
+                  {patient?.medicalConditions ? (
+                    patient.medicalConditions.split(',').map((cond, i) => (
+                      <span key={i} className="demographic-pill warning">{cond.trim()}</span>
+                    ))
+                  ) : (
+                    <span className="text-body-sm">None recorded</span>
+                  )}
                 </div>
               </div>
+
+              <div className="history-item" style={{ marginBottom: '12px' }}>
+                <span className="text-label-sm label" style={{ display: 'block', color: 'var(--on-surface-variant)' }}>Allergies</span>
+                <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginTop: '4px' }}>
+                  {patient?.allergies && patient.allergies !== 'None' ? (
+                    patient.allergies.split(',').map((alg, i) => (
+                      <span key={i} className="demographic-pill" style={{ background: '#ffebee', color: '#c62828' }}>{alg.trim()}</span>
+                    ))
+                  ) : (
+                    <span className="text-body-sm">No known allergies</span>
+                  )}
+                </div>
+              </div>
+
+              <div className="history-item" style={{ marginBottom: '12px' }}>
+                <span className="text-label-sm label" style={{ display: 'block', color: 'var(--on-surface-variant)' }}>Past Medications</span>
+                <div className="text-body-sm" style={{ marginTop: '4px' }}>
+                  {patient?.medications || 'None recorded'}
+                </div>
+              </div>
+
+              {patient?.surgeries && (
+                <div className="history-item" style={{ marginBottom: '12px' }}>
+                  <span className="text-label-sm label" style={{ display: 'block', color: 'var(--on-surface-variant)' }}>Past Surgeries</span>
+                  <div className="text-body-sm" style={{ marginTop: '4px' }}>
+                    {patient.surgeries}
+                  </div>
+                </div>
+              )}
               <div className="history-item">
                 <span className="text-label-sm label" style={{ display: 'block', color: 'var(--on-surface-variant)' }}>Previous Visits</span>
                 <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>

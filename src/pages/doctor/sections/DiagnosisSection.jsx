@@ -74,15 +74,13 @@ export default function DiagnosisSection({ diagnosis, setDiagnosis }) {
 
         <div className="vital-input-group">
           <label>Primary Diagnosis (ICD-10)</label>
-          <div className="input-wrapper">
-            <input 
-              type="text" 
-              value={diagnosis.primary} 
-              onChange={handlePrimaryChange} 
-              placeholder="Search diagnosis or ICD-10 code..." 
-              list="icd10-suggestions"
-            />
-          </div>
+          <input 
+            type="text" 
+            value={diagnosis.primary} 
+            onChange={handlePrimaryChange} 
+            placeholder="Search diagnosis or ICD-10 code..." 
+            list="icd10-suggestions"
+          />
           <datalist id="icd10-suggestions">
             <option value="J02.9 - Acute pharyngitis, unspecified" />
             <option value="I10 - Essential (primary) hypertension" />

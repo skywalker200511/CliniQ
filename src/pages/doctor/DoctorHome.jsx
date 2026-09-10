@@ -31,7 +31,7 @@ export default function DoctorHome() {
             <span className="status-dot green"></span>
             OUTPATIENT SESSION ACTIVE • STATION 02
           </div>
-          <h1 className="text-display mt-sm">Good Morning, {state.currentUser?.fullName || 'Dr. Jenkins'}</h1>
+          <h1 className="text-display mt-sm">Good Morning, {state.currentUser?.fullName}</h1>
           <p className="text-body-lg" style={{ color: 'var(--on-surface-variant)' }}>
             Here's your clinic overview for today.
           </p>
@@ -159,7 +159,6 @@ export default function DoctorHome() {
                 <h2 className="text-headline-sm">Today's Patient Queue</h2>
                 <span className="total-badge">{queueStats.total} Total</span>
               </div>
-              <button className="icon-button"><span className="material-symbols-outlined">refresh</span></button>
             </div>
 
             {queueStats.total > 0 ? (
@@ -228,7 +227,7 @@ export default function DoctorHome() {
           <span className="text-label-md">EHR System Operational</span>
         </div>
         <div className="version-info text-label-sm">
-          CareTrack v4.12 • Medical Records Direct Connect
+          Cliniq v4.12 • Medical Records Direct Connect
         </div>
       </div>
     </div>

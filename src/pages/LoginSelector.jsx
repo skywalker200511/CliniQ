@@ -22,8 +22,8 @@ export default function LoginSelector() {
     <div className="login-selector">
       <div className="login-card animate-fade-in-scale">
         <div className="login-brand">
-          <img src="/logo.svg" alt="CareTrack Logo" className="login-logo" />
-          <h1 className="login-title text-headline-md">CareTrack Demo</h1>
+          <img src="/logo.svg" alt="Cliniq Logo" className="login-logo" />
+          <h1 className="login-title text-headline-md">Cliniq Demo</h1>
           <p className="login-subtitle text-body-md">Select a role to enter the application</p>
         </div>
 

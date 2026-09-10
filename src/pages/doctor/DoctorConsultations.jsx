@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import SearchInput from '../../components/shared/SearchInput';
 import EmptyState from '../../components/shared/EmptyState';
+import ReportList from '../../components/shared/ReportList';
 import './DoctorPatients.css'; // Re-use the table styling from DoctorPatients
 
 export default function DoctorConsultations() {
@@ -234,6 +235,14 @@ export default function DoctorConsultations() {
                 <div className="text-body-sm" style={{ padding: '12px', background: 'var(--surface-container-low)', borderRadius: '6px', whiteSpace: 'pre-wrap' }}>
                   {selectedCase.notes}
                 </div>
+              </div>
+            )}
+
+            {/* Patient Reports from patient module */}
+            {selectedCase.patient_id && (
+              <div>
+                <h3 className="text-label-md" style={{ marginBottom: '8px' }}>Patient Reports & Documents</h3>
+                <ReportList patientId={selectedCase.patient_id} />
               </div>
             )}
           </div>

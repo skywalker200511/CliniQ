@@ -4,12 +4,15 @@ import { searchPatients, calculateAge, deletePatient } from '../../services/pati
 import { addToQueue } from '../../services/queueService';
 import SearchInput from '../../components/shared/SearchInput';
 import EmptyState from '../../components/shared/EmptyState';
+import Modal from '../../components/shared/Modal';
+import ReportList from '../../components/shared/ReportList';
 import './ReceptionistPatients.css';
 
 export default function ReceptionistPatients() {
   const { state, dispatch, showToast } = useAppContext();
   const [searchQuery, setSearchQuery] = useState('');
   const [patients, setPatients] = useState([]);
+  const [reportsPatient, setReportsPatient] = useState(null);
   
   useEffect(() => {
     const fetchPatients = async () => {
@@ -68,12 +71,6 @@ export default function ReceptionistPatients() {
               autoFocus={true}
             />
           </div>
-          <div className="filter-chips">
-            <span className="filter-label text-label-sm">Quick Filters:</span>
-            <button className="chip">Recently Visited</button>
-            <button className="chip">Seniors (65+)</button>
-            <button className="chip">Pediatrics</button>
-          </div>
         </div>
 
         <div className="directory-table-wrapper">
@@ -114,8 +111,13 @@ export default function ReceptionistPatients() {
                       {patient.lastVisitDate ? new Date(patient.lastVisitDate).toLocaleDateString() : 'New Patient'}
                     </td>
                     <td className="text-right actions-cell">
-                      <button className="btn btn-outline" style={{ height: '32px', padding: '0 12px', fontSize: '13px' }}>
-                        View Profile
+                      <button 
+                        className="btn btn-outline" 
+                        style={{ height: '32px', padding: '0 12px', fontSize: '13px', marginRight: '6px' }}
+                        onClick={() => setReportsPatient(patient)}
+                      >
+                        <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>folder_shared</span> 
+                        Reports
                       </button>
                       <button 
                         className="btn btn-primary" 
@@ -134,7 +136,7 @@ export default function ReceptionistPatients() {
                         onClick={async () => {
                           if (window.confirm(`WARNING: This will permanently delete ${patient.fullName} and all their records from the database. Are you sure?`)) {
                             try {
-                              await deletePatient(patient.id);
+                              await deletePatient(patient);
                               setPatients(prev => prev.filter(p => p.id !== patient.id));
                               showToast('Patient deleted successfully');
                             } catch (error) {
@@ -169,6 +171,19 @@ export default function ReceptionistPatients() {
           </table>
         </div>
       </div>
+
+      {/* Patient Reports Modal */}
+      <Modal
+        isOpen={!!reportsPatient}
+        onClose={() => setReportsPatient(null)}
+        title={`Reports — ${reportsPatient?.fullName || 'Patient'}`}
+        icon="folder_shared"
+        size="lg"
+      >
+        {reportsPatient && (
+          <ReportList patientId={reportsPatient.id} patientName={reportsPatient.fullName} source={reportsPatient.source || 'clinic'} />
+        )}
+      </Modal>
     </div>
   );
 }

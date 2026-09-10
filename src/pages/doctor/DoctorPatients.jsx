@@ -1,17 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../data/store';
 import { searchPatients, calculateAge } from '../../services/patientService';
 import SearchInput from '../../components/shared/SearchInput';
 import EmptyState from '../../components/shared/EmptyState';
+import Modal from '../../components/shared/Modal';
+import ReportList from '../../components/shared/ReportList';
 import './DoctorPatients.css';
 
 export default function DoctorPatients() {
   const { state } = useAppContext();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const [patients, setPatients] = useState([]);
+  const [reportsPatient, setReportsPatient] = useState(null);
   
-  const patients = searchPatients(state, searchQuery);
+  useEffect(() => {
+    const fetchPatients = async () => {
+      const results = await searchPatients(searchQuery);
+      setPatients(results);
+    };
+    
+    const timeoutId = setTimeout(() => {
+      fetchPatients();
+    }, 300);
+    
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery]);
 
   const handleStartConsultation = (patientId) => {
     navigate(`/doctor/consultation/${patientId}`);
@@ -38,12 +53,6 @@ export default function DoctorPatients() {
               shortcut="⌘K"
               autoFocus={true}
             />
-          </div>
-          <div className="filter-chips">
-            <span className="filter-label text-label-sm">Quick Filters:</span>
-            <button className="chip">My Patients</button>
-            <button className="chip">Recent Consults</button>
-            <button className="chip">Chronic Care</button>
           </div>
         </div>
 
@@ -89,8 +98,13 @@ export default function DoctorPatients() {
                       )}
                     </td>
                     <td className="text-right actions-cell">
-                      <button className="btn btn-outline" style={{ height: '32px', padding: '0 12px', fontSize: '13px' }}>
-                        View EHR
+                      <button 
+                        className="btn btn-outline" 
+                        style={{ height: '32px', padding: '0 12px', fontSize: '13px', marginRight: '6px' }}
+                        onClick={() => setReportsPatient(patient)}
+                      >
+                        <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>folder_shared</span> 
+                        Reports
                       </button>
                       <button 
                         className="btn btn-primary" 
@@ -118,6 +132,19 @@ export default function DoctorPatients() {
           </table>
         </div>
       </div>
+
+      {/* Patient Reports Modal */}
+      <Modal
+        isOpen={!!reportsPatient}
+        onClose={() => setReportsPatient(null)}
+        title={`Reports — ${reportsPatient?.fullName || 'Patient'}`}
+        icon="folder_shared"
+        size="lg"
+      >
+        {reportsPatient && (
+          <ReportList patientId={reportsPatient.id} patientName={reportsPatient.fullName} source={reportsPatient.source || 'clinic'} />
+        )}
+      </Modal>
     </div>
   );
 }

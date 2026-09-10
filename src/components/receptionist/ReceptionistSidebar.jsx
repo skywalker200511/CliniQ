@@ -19,18 +19,17 @@ export default function ReceptionistSidebar() {
     <aside className="receptionist-sidebar">
       <div className="sidebar-brand">
         <div className="brand-logo">
-          <img src="/logo.svg" alt="CareTrack Logo" />
+          <img src="/logo.svg" alt="Cliniq Logo" />
         </div>
         <div className="brand-text">
-          <div className="brand-name">CareTrack</div>
+          <div className="brand-name">Cliniq</div>
           <div className="brand-subtitle">Clinic Portal</div>
         </div>
       </div>
 
       <div className="sidebar-clinic-selector">
         <span className="material-symbols-outlined">domain</span>
-        <span className="clinic-name-text">CareTrack Clinic • Main Branch</span>
-        <span className="material-symbols-outlined expand-icon">unfold_more</span>
+        <span className="clinic-name-text">Cliniq Clinic • Main Branch</span>
       </div>
 
       <div className="nav-section-title">FRONT DESK NAVIGATION</div>
@@ -54,14 +53,6 @@ export default function ReceptionistSidebar() {
 
       <div className="sidebar-footer">
         <div className="nav-section-title">SYSTEM</div>
-        <button className="nav-item">
-          <span className="material-symbols-outlined nav-icon">settings</span>
-          <span className="nav-label">Settings</span>
-        </button>
-        <button className="nav-item">
-          <span className="material-symbols-outlined nav-icon">help</span>
-          <span className="nav-label">Help</span>
-        </button>
         <button className="nav-item" onClick={() => {
           window.location.href = '/';
           dispatch({ type: 'SET_USER', payload: null });

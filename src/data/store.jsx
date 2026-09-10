@@ -8,7 +8,7 @@ const initialState = {
   patients: [],
   queue: [],
   consultations: [],
-  messages: [],
+  messages: INITIAL_MESSAGES,
   toasts: [],
 };
 

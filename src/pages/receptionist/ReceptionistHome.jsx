@@ -82,10 +82,6 @@ export default function ReceptionistHome() {
                   <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>Main waiting lobby & arrival flow management</p>
                 </div>
               </div>
-              <div className="card-actions">
-                <span className="refresh-badge">Auto-refresh On</span>
-                <button className="icon-button"><span className="material-symbols-outlined">refresh</span></button>
-              </div>
             </div>
 
             <div className="queue-stats-row">
@@ -132,9 +128,6 @@ export default function ReceptionistHome() {
                 <Link to="/receptionist/register" className="btn btn-primary">
                   <span className="material-symbols-outlined">add</span> Intake First Patient
                 </Link>
-                <button className="btn btn-secondary">
-                  <span className="material-symbols-outlined">qr_code_scanner</span> Scan Health Card
-                </button>
               </div>
             </div>
           </div>
@@ -176,7 +169,7 @@ export default function ReceptionistHome() {
               <div className="doctor-profile">
                 <div className="doc-avatar">SJ</div>
                 <div className="doc-info">
-                  <div className="doc-name text-label-md">Dr. Sarah Jenkins, MD</div>
+                  <div className="doc-name text-label-md">Doctor</div>
                   <div className="doc-dept text-body-sm">General Practice • Room 102</div>
                 </div>
                 <span className="badge-available">Available</span>
@@ -187,9 +180,9 @@ export default function ReceptionistHome() {
                 <span className="text-label-md">Idle • Ready for Next Patient</span>
               </div>
               
-              <button className="btn btn-full btn-secondary mt-md">
+              <Link to="/receptionist/messages" className="btn btn-full btn-secondary mt-md">
                 <span className="material-symbols-outlined">edit_note</span> Send Note to Doctor
-              </button>
+              </Link>
             </div>
           </div>
 

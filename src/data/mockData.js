@@ -1,13 +1,13 @@
 /**
- * CareTrack Mock Data
+ * Cliniq Mock Data
  * Realistic seed data for development and demonstration.
  */
 
 export const USERS = {
   doctor: {
     id: 'doc-001',
-    fullName: 'Dr. Sarah Jenkins',
-    initials: 'SJ',
+    fullName: 'Doctor',
+    initials: 'DR',
     role: 'doctor',
     department: 'General Practice',
     roomNumber: '102',
@@ -15,8 +15,8 @@ export const USERS = {
   },
   receptionist: {
     id: 'rec-001',
-    fullName: 'Elena Rostova',
-    initials: 'ER',
+    fullName: 'Receptionist',
+    initials: 'RE',
     role: 'receptionist',
     department: 'Front Desk',
     title: 'Receptionist',
@@ -24,7 +24,7 @@ export const USERS = {
 };
 
 export const DOCTORS_LIST = [
-  { id: 'doc-001', fullName: 'Dr. Sarah Jenkins', initials: 'SJ', department: 'General Medicine', roomNumber: '101', status: 'Busy' },
+  { id: 'doc-001', fullName: 'Doctor', initials: 'DR', department: 'General Medicine', roomNumber: '101', status: 'Busy' },
   { id: 'doc-002', fullName: 'Dr. Marcus Lee', initials: 'ML', department: 'Cardiology', roomNumber: '102', status: 'Available' },
   { id: 'doc-003', fullName: 'Dr. Anita Roy', initials: 'AR', department: 'Pediatrics', roomNumber: '103', status: 'Break' },
 ];
@@ -192,10 +192,10 @@ export const INITIAL_MESSAGES = [
     id: 'msg-001',
     senderId: 'rec-001',
     senderRole: 'receptionist',
-    senderName: 'Elena Rostova',
+    senderName: 'Receptionist',
     receiverId: 'doc-001',
     receiverRole: 'doctor',
-    content: 'Good morning Dr. Jenkins. Your first patient Mr. Rahul Sharma (PT-2041) has been checked in and is waiting in the lobby.',
+    content: 'Good morning Doctor. Your first patient Mr. Rahul Sharma (PT-2041) has been checked in and is waiting in the lobby.',
     timestamp: '2024-10-24T09:45:00Z',
     read: true,
   },
@@ -203,10 +203,10 @@ export const INITIAL_MESSAGES = [
     id: 'msg-002',
     senderId: 'doc-001',
     senderRole: 'doctor',
-    senderName: 'Dr. Sarah Jenkins',
+    senderName: 'Doctor',
     receiverId: 'rec-001',
     receiverRole: 'receptionist',
-    content: 'Thank you Elena. Please send him in to Room 102.',
+    content: 'Thank you. Please send him in to Room 102.',
     timestamp: '2024-10-24T09:47:00Z',
     read: true,
   },
@@ -214,7 +214,7 @@ export const INITIAL_MESSAGES = [
     id: 'msg-003',
     senderId: 'rec-001',
     senderRole: 'receptionist',
-    senderName: 'Elena Rostova',
+    senderName: 'Receptionist',
     receiverId: 'doc-001',
     receiverRole: 'doctor',
     content: 'Patient has been directed to Room 102. He mentioned persistent headache as the primary concern.',

@@ -17,7 +17,7 @@ export default function ReceptionistMessages() {
     sendMessage(dispatch, {
       senderId: currentUser?.id || 'rec-001',
       senderRole: 'receptionist',
-      senderName: currentUser?.fullName || 'Elena Rostova',
+      senderName: currentUser?.fullName || 'Receptionist',
       receiverId: 'doc-001', // Sending to doctor 1 for demo
       receiverRole: 'doctor',
       content: newMessage.trim(),
@@ -45,7 +45,7 @@ export default function ReceptionistMessages() {
                 <span className="material-symbols-outlined">stethoscope</span>
               </div>
               <div className="recipient-info">
-                <div className="text-label-md">Dr. Sarah Jenkins</div>
+                <div className="text-label-md">Doctor</div>
                 <div className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>Room 102</div>
               </div>
             </div>
@@ -68,7 +68,7 @@ export default function ReceptionistMessages() {
             <input 
               type="text" 
               className="chat-input" 
-              placeholder="Type a message to Dr. Jenkins..." 
+              placeholder="Type a message to the doctor..."
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
             />

@@ -18,13 +18,7 @@ import ReceptionistQueue from './pages/receptionist/ReceptionistQueue';
 import ReceptionistPatients from './pages/receptionist/ReceptionistPatients';
 import ReceptionistMessages from './pages/receptionist/ReceptionistMessages';
 
-// Placeholder for unbuilt pages
-const Placeholder = ({ title }) => (
-  <div style={{ padding: '2rem' }}>
-    <h2>{title}</h2>
-    <p>Page is under construction.</p>
-  </div>
-);
+
 
 export default function App() {
   return (
@@ -40,8 +34,6 @@ export default function App() {
           <Route path="consultations" element={<DoctorConsultations />} />
           <Route path="consultation/:id" element={<DoctorConsultation />} />
           <Route path="messages" element={<DoctorMessages />} />
-          <Route path="follow-ups" element={<Placeholder title="Follow-ups" />} />
-          <Route path="documents" element={<Placeholder title="Documents" />} />
         </Route>
 
         {/* Receptionist Routes */}
