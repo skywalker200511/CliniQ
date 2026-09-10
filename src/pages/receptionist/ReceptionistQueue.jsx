@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAppContext } from '../../data/store';
 import { getFilteredQueue, getQueueStats, removeFromQueue } from '../../services/queueService';
 import StatusBadge from '../../components/shared/StatusBadge';
@@ -7,7 +8,7 @@ import EmptyState from '../../components/shared/EmptyState';
 import './ReceptionistQueue.css';
 
 export default function ReceptionistQueue() {
-  const { state } = useAppContext();
+  const { state, dispatch } = useAppContext();
   const [filter, setFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   
@@ -24,9 +25,9 @@ export default function ReceptionistQueue() {
           </p>
         </div>
         <div className="header-actions">
-          <button className="btn btn-primary">
+          <Link to="/receptionist/register" className="btn btn-primary">
             <span className="material-symbols-outlined">person_add</span> Register Walk-in
-          </button>
+          </Link>
         </div>
       </div>
 

@@ -1,14 +1,48 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../../data/store';
-import { getQueueStats } from '../../services/queueService';
+import { getQueueStats, addToQueue } from '../../services/queueService';
+import { searchPatients } from '../../services/patientService';
+import Modal from '../../components/shared/Modal';
+import SearchInput from '../../components/shared/SearchInput';
 import './ReceptionistHome.css';
 
 export default function ReceptionistHome() {
-  const { state } = useAppContext();
+  const { state, dispatch, showToast } = useAppContext();
   const queueStats = getQueueStats(state);
   
   const today = new Date();
   const dateStr = today.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+
+  // Quick Add State
+  const [showQuickAdd, setShowQuickAdd] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    if (!showQuickAdd) return;
+    const fetchPatients = async () => {
+      const results = await searchPatients(searchQuery);
+      setPatients(results.slice(0, 5)); // Just top 5 for quick add
+    };
+    const timeoutId = setTimeout(fetchPatients, 300);
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery, showQuickAdd]);
+
+  const handleAddToQueue = (patient) => {
+    addToQueue(dispatch, state, {
+      patientId: patient.id,
+      patientName: patient.fullName,
+      patientMrn: patient.id,
+    });
+    showToast(`${patient.fullName} added to queue`);
+    setShowQuickAdd(false);
+    setSearchQuery('');
+  };
+
+  const isPatientInQueue = (patientId) => {
+    return state.queue.some(q => q.patientId === patientId && (q.status === 'Waiting' || q.status === 'With Doctor'));
+  };
 
   return (
     <div className="receptionist-home">
@@ -16,7 +50,7 @@ export default function ReceptionistHome() {
       <div className="home-header">
         <div>
           <div className="shift-badge">SHIFT ACTIVE</div>
-          <span className="terminal-id">TERMINAL 01 • MAIN DESK</span>
+          <span className="terminal-id">TERMINAL 01 — MAIN DESK</span>
           <h1 className="text-display">Good Morning, {state.currentUser?.fullName.split(' ')[0] || 'Elena'}</h1>
           <p className="text-body-lg" style={{ color: 'var(--on-surface-variant)' }}>
             Manage today's patient flow and front-desk admissions.
@@ -47,16 +81,16 @@ export default function ReceptionistHome() {
           <span className="material-symbols-outlined arrow">arrow_forward</span>
         </Link>
         
-        <Link to="/receptionist/patients" className="action-card">
+        <button onClick={() => setShowQuickAdd(true)} className="action-card" style={{ textAlign: 'left' }}>
           <div className="action-icon light">
-            <span className="material-symbols-outlined">search</span>
+            <span className="material-symbols-outlined">queue</span>
           </div>
           <div className="action-content">
-            <h3 className="text-headline-sm">Search Patient</h3>
-            <p className="text-body-sm">Find by MRN, Name, or Phone</p>
+            <h3 className="text-headline-sm">Quick Add to Queue</h3>
+            <p className="text-body-sm">Search existing clinic directory</p>
           </div>
-          <kbd className="shortcut">⌘K</kbd>
-        </Link>
+          <span className="material-symbols-outlined arrow">arrow_forward</span>
+        </button>
         
         <Link to="/receptionist/queue" className="action-card">
           <div className="action-icon light">
@@ -81,6 +115,11 @@ export default function ReceptionistHome() {
                   <h2 className="text-headline-sm">Today's Patient Queue</h2>
                   <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>Main waiting lobby & arrival flow management</p>
                 </div>
+              </div>
+              <div className="card-actions">
+                <button className="btn btn-outline" onClick={() => setShowQuickAdd(true)}>
+                  <span className="material-symbols-outlined">add</span> Quick Add
+                </button>
               </div>
             </div>
 
@@ -118,18 +157,20 @@ export default function ReceptionistHome() {
               </div>
             </div>
 
-            <div className="empty-queue-state">
-              <div className="empty-icon"><span className="material-symbols-outlined">chair</span></div>
-              <h3 className="text-headline-sm">No patients are currently waiting</h3>
-              <p className="text-body-md" style={{ color: 'var(--on-surface-variant)' }}>
-                Registered patients will appear here automatically when they check in at the front desk or self-service kiosk.
-              </p>
-              <div className="empty-actions">
-                <Link to="/receptionist/register" className="btn btn-primary">
-                  <span className="material-symbols-outlined">add</span> Intake First Patient
-                </Link>
+            {queueStats.waiting === 0 && (
+              <div className="empty-queue-state">
+                <div className="empty-icon"><span className="material-symbols-outlined">chair</span></div>
+                <h3 className="text-headline-sm">No patients are currently waiting</h3>
+                <p className="text-body-md" style={{ color: 'var(--on-surface-variant)' }}>
+                  Registered patients will appear here automatically when they check in at the front desk or self-service kiosk.
+                </p>
+                <div className="empty-actions">
+                  <button className="btn btn-primary" onClick={() => setShowQuickAdd(true)}>
+                    <span className="material-symbols-outlined">add</span> Quick Add to Queue
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Activity Log */}
@@ -222,6 +263,49 @@ export default function ReceptionistHome() {
           </div>
         </div>
       </div>
+
+      <Modal 
+        isOpen={showQuickAdd} 
+        onClose={() => { setShowQuickAdd(false); setSearchQuery(''); }}
+        title="Quick Add to Queue"
+        icon="queue"
+        size="md"
+      >
+        <div style={{ marginBottom: '16px' }}>
+          <SearchInput 
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="Search by name, phone, or MRN..."
+            autoFocus
+          />
+        </div>
+        
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '400px', overflowY: 'auto' }}>
+          {patients.length > 0 ? patients.map(p => {
+            const inQueue = isPatientInQueue(p.id);
+            return (
+              <div key={p.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', background: 'var(--surface-container-low)', borderRadius: '8px' }}>
+                <div>
+                  <div className="text-label-md">{p.fullName}</div>
+                  <div className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>{p.phone} • {p.gender}</div>
+                </div>
+                <button 
+                  className={`btn ${inQueue ? 'btn-outline' : 'btn-primary'}`}
+                  disabled={inQueue}
+                  onClick={() => handleAddToQueue(p)}
+                >
+                  <span className="material-symbols-outlined">{inQueue ? 'check' : 'add'}</span>
+                  {inQueue ? 'In Queue' : 'Add'}
+                </button>
+              </div>
+            )
+          }) : (
+            <div className="text-body-sm" style={{ textAlign: 'center', padding: '32px', color: 'var(--on-surface-variant)' }}>
+              {searchQuery ? 'No matching patients found.' : 'Start typing to search for a patient.'}
+            </div>
+          )}
+        </div>
+      </Modal>
     </div>
   );
 }
