@@ -35,6 +35,7 @@ export default function ReceptionistHome() {
       patientId: patient.id,
       patientName: patient.fullName,
       patientMrn: patient.id,
+      fullPatient: patient
     });
     showToast(`${patient.fullName} added to queue`);
     setShowQuickAdd(false);
