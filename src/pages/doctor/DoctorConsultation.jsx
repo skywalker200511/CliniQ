@@ -198,13 +198,27 @@ export default function DoctorConsultation() {
               </div>
 
               {patient?.surgeries && (
-                <div className="history-item">
+                <div className="history-item" style={{ marginBottom: '12px' }}>
                   <span className="text-label-sm label" style={{ display: 'block', color: 'var(--on-surface-variant)' }}>Past Surgeries</span>
                   <div className="text-body-sm" style={{ marginTop: '4px' }}>
                     {patient.surgeries}
                   </div>
                 </div>
               )}
+
+              <div className="history-item">
+                <span className="text-label-sm label" style={{ display: 'block', color: 'var(--on-surface-variant)' }}>Previous Visits</span>
+                <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ padding: '8px', background: 'var(--surface-container-low)', borderRadius: '6px' }}>
+                    <div className="text-body-sm" style={{ fontWeight: 500 }}>Viral Fever</div>
+                    <div className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>Prescribed: Paracetamol</div>
+                  </div>
+                  <div style={{ padding: '8px', background: 'var(--surface-container-low)', borderRadius: '6px' }}>
+                    <div className="text-body-sm" style={{ fontWeight: 500 }}>Routine Checkup</div>
+                    <div className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>Vitals normal, BP stable</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
