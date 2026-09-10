@@ -198,26 +198,13 @@ export default function DoctorConsultation() {
               </div>
 
               {patient?.surgeries && (
-                <div className="history-item" style={{ marginBottom: '12px' }}>
+                <div className="history-item">
                   <span className="text-label-sm label" style={{ display: 'block', color: 'var(--on-surface-variant)' }}>Past Surgeries</span>
                   <div className="text-body-sm" style={{ marginTop: '4px' }}>
                     {patient.surgeries}
                   </div>
                 </div>
               )}
-              <div className="history-item">
-                <span className="text-label-sm label" style={{ display: 'block', color: 'var(--on-surface-variant)' }}>Previous Visits</span>
-                <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <div style={{ padding: '8px', background: 'var(--surface-container-low)', borderRadius: '6px' }}>
-                    <div className="text-label-sm">12 Aug 2023</div>
-                    <div className="text-body-sm">Viral Fever (Paracetamol)</div>
-                  </div>
-                  <div style={{ padding: '8px', background: 'var(--surface-container-low)', borderRadius: '6px' }}>
-                    <div className="text-label-sm">05 Jan 2023</div>
-                    <div className="text-body-sm">Routine Checkup (BP Normal)</div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 
