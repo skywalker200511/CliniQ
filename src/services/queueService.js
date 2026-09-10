@@ -1,6 +1,13 @@
 import { supabase } from '../lib/supabase';
 
 export async function addToQueue(dispatch, state, { patientId, patientName, patientMrn, doctorId, appointmentTime }) {
+  // Safety check: don't add if already waiting or with doctor today
+  const isAlreadyInQueue = state.queue.some(q => q.patientId === patientId && (q.status === 'Waiting' || q.status === 'With Doctor'));
+  if (isAlreadyInQueue) {
+    console.warn('Patient is already in the queue');
+    return;
+  }
+
   const queueNumber = (state.queue.length + 1).toString().padStart(2, '0');
   const now = new Date();
   const arrivalTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });

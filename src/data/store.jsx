@@ -112,7 +112,13 @@ export function AppProvider({ children }) {
 
   useEffect(() => {
     const fetchQueue = async () => {
-      const { data } = await supabase.from('queue').select('*');
+      // Only fetch queue entries from today
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const { data } = await supabase.from('queue')
+        .select('*')
+        .gte('created_at', today.toISOString());
+        
       if (data) {
         const formatted = data.map(q => ({
           id: q.id,
