@@ -4,6 +4,7 @@ import ReceptionistSidebar from './ReceptionistSidebar';
 import ReceptionistHeader from './ReceptionistHeader';
 import ToastContainer from '../../components/shared/Toast';
 import './ReceptionistLayout.css';
+import './ReceptionistMobile.css';
 
 export default function ReceptionistLayout() {
   const { state } = useAppContext();

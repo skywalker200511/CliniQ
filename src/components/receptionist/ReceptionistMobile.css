@@ -1,17 +1,17 @@
-/* Mobile overrides for Doctor Module */
+/* Mobile overrides for Receptionist Module */
 @media (max-width: 768px) {
   /* Layout */
-  .doctor-main {
+  .receptionist-main {
     margin-left: 0 !important;
     margin-bottom: 65px !important; /* Space for bottom nav */
   }
 
-  .doctor-content {
+  .receptionist-content {
     padding: var(--gutter-md) !important;
   }
 
   /* Sidebar -> Bottom Nav */
-  .doctor-sidebar {
+  .receptionist-sidebar {
     width: 100vw !important;
     height: 65px !important;
     top: auto !important;
@@ -24,7 +24,8 @@
 
   .sidebar-brand,
   .sidebar-clinic-selector,
-  .sidebar-footer {
+  .sidebar-footer,
+  .nav-section-title {
     display: none !important;
   }
 
@@ -68,7 +69,7 @@
   }
 
   /* Header */
-  .doctor-header {
+  .receptionist-header {
     padding: 0 var(--gutter-md) !important;
   }
 
@@ -93,23 +94,8 @@
     gap: var(--gutter-md) !important;
   }
 
-  .queue-mini-stats {
-    gap: 16px !important;
-    justify-content: space-between !important;
-  }
-
-  .queue-big-number {
-    font-size: 72px !important;
-  }
-
-  .system-status-footer {
+  .stat-card-row {
     flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 12px !important;
-  }
-  
-  .version-info {
-    margin-left: 0 !important;
   }
 
   /* Queue & Patients Tables */
@@ -149,7 +135,7 @@
   }
 
   /* Messages */
-  .doctor-messages {
+  .receptionist-messages {
     height: calc(100vh - var(--header-height) - var(--gutter-md) * 2 - 65px) !important;
   }
   
@@ -160,5 +146,10 @@
   .recipient-avatar {
     width: 36px !important;
     height: 36px !important;
+  }
+
+  /* Registration Form */
+  .register-form-grid {
+    grid-template-columns: 1fr !important;
   }
 }
