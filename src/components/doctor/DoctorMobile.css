@@ -4,14 +4,19 @@
   .doctor-main {
     margin-left: 0 !important;
     margin-bottom: 65px !important; /* Space for bottom nav */
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
   }
 
   .doctor-content {
     padding: var(--gutter-md) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   /* Sidebar -> Bottom Nav */
   .doctor-sidebar {
+    position: fixed !important;
     width: 100vw !important;
     height: 65px !important;
     top: auto !important;
