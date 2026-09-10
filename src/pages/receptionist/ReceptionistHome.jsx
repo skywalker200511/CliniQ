@@ -23,7 +23,7 @@ export default function ReceptionistHome() {
     if (!showQuickAdd) return;
     const fetchPatients = async () => {
       const results = await searchPatients(searchQuery);
-      setPatients(results.slice(0, 5)); // Just top 5 for quick add
+      setPatients(results.slice(0, 15)); // Just top 15 for quick add
     };
     const timeoutId = setTimeout(fetchPatients, 300);
     return () => clearTimeout(timeoutId);
@@ -293,15 +293,21 @@ export default function ReceptionistHome() {
                   className={`btn ${inQueue ? 'btn-outline' : 'btn-primary'}`}
                   disabled={inQueue}
                   onClick={() => handleAddToQueue(p)}
+                  style={{ padding: '0 12px', height: '32px' }}
                 >
-                  <span className="material-symbols-outlined">{inQueue ? 'check' : 'add'}</span>
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>{inQueue ? 'check' : 'add'}</span>
                   {inQueue ? 'In Queue' : 'Add'}
                 </button>
               </div>
             )
           }) : (
             <div className="text-body-sm" style={{ textAlign: 'center', padding: '32px', color: 'var(--on-surface-variant)' }}>
-              {searchQuery ? 'No matching patients found.' : 'Start typing to search for a patient.'}
+              {searchQuery ? 'No matching patients found.' : (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                  <span className="material-symbols-outlined animate-spin" style={{ fontSize: '24px' }}>sync</span>
+                  <span>Loading patient directory...</span>
+                </div>
+              )}
             </div>
           )}
         </div>
